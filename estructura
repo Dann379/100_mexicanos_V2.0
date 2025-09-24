@@ -1,0 +1,17 @@
+/ (raíz del proyecto)
+├─ data/
+│  └─ preguntas.json
+├─ js/
+│  ├─ core/
+│  │  ├─ state.js
+│  │  ├─ multiplier.js
+│  │  ├─ random.js
+│  │  └─ logic.js
+│  ├─ ui/
+│  │  ├─ elements.js
+│  │  ├─ effects.js
+│  │  ├─ render.js
+│  │  └─ events.js
+│  └─ main.js
+├─ style.css
+└─ index.html

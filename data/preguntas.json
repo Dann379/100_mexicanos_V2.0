@@ -1,0 +1,2286 @@
+[
+  {
+    "pregunta": "¿Qué antojitos mexicanos encuentras en una feria?",
+    "respuestas": [
+      {
+        "texto": "Tacos",
+        "puntos": 35
+      },
+      {
+        "texto": "Elotes",
+        "puntos": 25
+      },
+      {
+        "texto": "Quesadillas",
+        "puntos": 20
+      },
+      {
+        "texto": "Tostadas",
+        "puntos": 12
+      },
+      {
+        "texto": "Tamales",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Menciona un animal que viva en la selva",
+    "respuestas": [
+      {
+        "texto": "Jaguar",
+        "puntos": 35
+      },
+      {
+        "texto": "Mono",
+        "puntos": 25
+      },
+      {
+        "texto": "Guacamaya",
+        "puntos": 20
+      },
+      {
+        "texto": "Serpiente",
+        "puntos": 12
+      },
+      {
+        "texto": "Tucán",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que siempre llevas a la playa",
+    "respuestas": [
+      {
+        "texto": "Traje de baño",
+        "puntos": 40
+      },
+      {
+        "texto": "Bloqueador",
+        "puntos": 25
+      },
+      {
+        "texto": "Toalla",
+        "puntos": 20
+      },
+      {
+        "texto": "Sombrilla",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué fruta es típica en verano?",
+    "respuestas": [
+      {
+        "texto": "Sandía",
+        "puntos": 40
+      },
+      {
+        "texto": "Mango",
+        "puntos": 25
+      },
+      {
+        "texto": "Melón",
+        "puntos": 20
+      },
+      {
+        "texto": "Piña",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un deporte que se practica con pelota",
+    "respuestas": [
+      {
+        "texto": "Fútbol",
+        "puntos": 40
+      },
+      {
+        "texto": "Básquetbol",
+        "puntos": 25
+      },
+      {
+        "texto": "Béisbol",
+        "puntos": 20
+      },
+      {
+        "texto": "Voleibol",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que usas para cortar",
+    "respuestas": [
+      {
+        "texto": "Tijeras",
+        "puntos": 40
+      },
+      {
+        "texto": "Cuchillo",
+        "puntos": 25
+      },
+      {
+        "texto": "Navaja",
+        "puntos": 20
+      },
+      {
+        "texto": "Cutter",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué comida mexicana lleva maíz?",
+    "respuestas": [
+      {
+        "texto": "Tortillas",
+        "puntos": 40
+      },
+      {
+        "texto": "Pozole",
+        "puntos": 25
+      },
+      {
+        "texto": "Tamales",
+        "puntos": 20
+      },
+      {
+        "texto": "Elotes",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un objeto que usas cuando llueve",
+    "respuestas": [
+      {
+        "texto": "Paraguas",
+        "puntos": 40
+      },
+      {
+        "texto": "Impermeable",
+        "puntos": 25
+      },
+      {
+        "texto": "Botas",
+        "puntos": 20
+      },
+      {
+        "texto": "Sombrero",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que hay en una fiesta infantil",
+    "respuestas": [
+      {
+        "texto": "Pastel",
+        "puntos": 35
+      },
+      {
+        "texto": "Piñata",
+        "puntos": 25
+      },
+      {
+        "texto": "Globos",
+        "puntos": 20
+      },
+      {
+        "texto": "Dulces",
+        "puntos": 12
+      },
+      {
+        "texto": "Juegos",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué cosa encuentras en la oficina?",
+    "respuestas": [
+      {
+        "texto": "Computadora",
+        "puntos": 35
+      },
+      {
+        "texto": "Escritorio",
+        "puntos": 25
+      },
+      {
+        "texto": "Silla",
+        "puntos": 20
+      },
+      {
+        "texto": "Teléfono",
+        "puntos": 12
+      },
+      {
+        "texto": "Impresora",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Un sabor de helado popular",
+    "respuestas": [
+      {
+        "texto": "Vainilla",
+        "puntos": 35
+      },
+      {
+        "texto": "Chocolate",
+        "puntos": 25
+      },
+      {
+        "texto": "Fresa",
+        "puntos": 20
+      },
+      {
+        "texto": "Napolitano",
+        "puntos": 12
+      },
+      {
+        "texto": "Galleta",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que la gente hace al despertar",
+    "respuestas": [
+      {
+        "texto": "Apagar la alarma",
+        "puntos": 35
+      },
+      {
+        "texto": "Ir al baño",
+        "puntos": 25
+      },
+      {
+        "texto": "Tomar agua",
+        "puntos": 20
+      },
+      {
+        "texto": "Revisar el celular",
+        "puntos": 12
+      },
+      {
+        "texto": "Bañarse",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué llevas en la cartera?",
+    "respuestas": [
+      {
+        "texto": "Dinero",
+        "puntos": 40
+      },
+      {
+        "texto": "Tarjetas",
+        "puntos": 25
+      },
+      {
+        "texto": "INE",
+        "puntos": 20
+      },
+      {
+        "texto": "Monedas",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una materia de la primaria",
+    "respuestas": [
+      {
+        "texto": "Español",
+        "puntos": 35
+      },
+      {
+        "texto": "Matemáticas",
+        "puntos": 25
+      },
+      {
+        "texto": "Ciencias",
+        "puntos": 20
+      },
+      {
+        "texto": "Historia",
+        "puntos": 12
+      },
+      {
+        "texto": "Educación Física",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que hace ruido en la casa",
+    "respuestas": [
+      {
+        "texto": "Licuo­dora",
+        "puntos": 35
+      },
+      {
+        "texto": "Lavadora",
+        "puntos": 25
+      },
+      {
+        "texto": "Aspiradora",
+        "puntos": 20
+      },
+      {
+        "texto": "Secadora",
+        "puntos": 12
+      },
+      {
+        "texto": "Microondas",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Un medio de transporte público",
+    "respuestas": [
+      {
+        "texto": "Autobús",
+        "puntos": 40
+      },
+      {
+        "texto": "Metro",
+        "puntos": 25
+      },
+      {
+        "texto": "Taxi",
+        "puntos": 20
+      },
+      {
+        "texto": "Tren",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que compras en la farmacia",
+    "respuestas": [
+      {
+        "texto": "Medicinas",
+        "puntos": 35
+      },
+      {
+        "texto": "Vitaminas",
+        "puntos": 25
+      },
+      {
+        "texto": "Jarabe",
+        "puntos": 20
+      },
+      {
+        "texto": "Aspirinas",
+        "puntos": 12
+      },
+      {
+        "texto": "Cubrebocas",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué encuentras en el refrigerador?",
+    "respuestas": [
+      {
+        "texto": "Leche",
+        "puntos": 35
+      },
+      {
+        "texto": "Huevos",
+        "puntos": 25
+      },
+      {
+        "texto": "Verduras",
+        "puntos": 20
+      },
+      {
+        "texto": "Agua",
+        "puntos": 12
+      },
+      {
+        "texto": "Jugo",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Un instrumento musical",
+    "respuestas": [
+      {
+        "texto": "Guitarra",
+        "puntos": 35
+      },
+      {
+        "texto": "Piano",
+        "puntos": 25
+      },
+      {
+        "texto": "Batería",
+        "puntos": 20
+      },
+      {
+        "texto": "Violín",
+        "puntos": 12
+      },
+      {
+        "texto": "Trompeta",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Un electrodoméstico de cocina",
+    "respuestas": [
+      {
+        "texto": "Refrigerador",
+        "puntos": 40
+      },
+      {
+        "texto": "Microondas",
+        "puntos": 25
+      },
+      {
+        "texto": "Licuadora",
+        "puntos": 20
+      },
+      {
+        "texto": "Estufa",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un animal de granja",
+    "respuestas": [
+      {
+        "texto": "Vaca",
+        "puntos": 35
+      },
+      {
+        "texto": "Cerdo",
+        "puntos": 25
+      },
+      {
+        "texto": "Gallina",
+        "puntos": 20
+      },
+      {
+        "texto": "Caballo",
+        "puntos": 12
+      },
+      {
+        "texto": "Borrego",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que llevas en la mochila",
+    "respuestas": [
+      {
+        "texto": "Cuadernos",
+        "puntos": 35
+      },
+      {
+        "texto": "Lápiz",
+        "puntos": 25
+      },
+      {
+        "texto": "Libro",
+        "puntos": 20
+      },
+      {
+        "texto": "Laptop",
+        "puntos": 12
+      },
+      {
+        "texto": "Botella de agua",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces un domingo por la tarde?",
+    "respuestas": [
+      {
+        "texto": "Dormir siesta",
+        "puntos": 35
+      },
+      {
+        "texto": "Ver TV",
+        "puntos": 25
+      },
+      {
+        "texto": "Salir al parque",
+        "puntos": 20
+      },
+      {
+        "texto": "Visitar familia",
+        "puntos": 12
+      },
+      {
+        "texto": "Comer fuera",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una aplicación que usas todos los días",
+    "respuestas": [
+      {
+        "texto": "WhatsApp",
+        "puntos": 35
+      },
+      {
+        "texto": "Facebook",
+        "puntos": 25
+      },
+      {
+        "texto": "Instagram",
+        "puntos": 20
+      },
+      {
+        "texto": "YouTube",
+        "puntos": 12
+      },
+      {
+        "texto": "TikTok",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que haces para ahorrar",
+    "respuestas": [
+      {
+        "texto": "Apagar luces",
+        "puntos": 40
+      },
+      {
+        "texto": "Comprar al mayoreo",
+        "puntos": 25
+      },
+      {
+        "texto": "Usar transporte público",
+        "puntos": 20
+      },
+      {
+        "texto": "Llevar lonche",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una comida típica del desayuno",
+    "respuestas": [
+      {
+        "texto": "Huevos",
+        "puntos": 35
+      },
+      {
+        "texto": "Chilaquiles",
+        "puntos": 25
+      },
+      {
+        "texto": "Pan dulce",
+        "puntos": 20
+      },
+      {
+        "texto": "Avena",
+        "puntos": 12
+      },
+      {
+        "texto": "Fruta",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que haces antes de manejar",
+    "respuestas": [
+      {
+        "texto": "Ponerse el cinturón",
+        "puntos": 40
+      },
+      {
+        "texto": "Revisar espejos",
+        "puntos": 25
+      },
+      {
+        "texto": "Encender el auto",
+        "puntos": 20
+      },
+      {
+        "texto": "Ajustar asiento",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un país famoso por su comida",
+    "respuestas": [
+      {
+        "texto": "México",
+        "puntos": 35
+      },
+      {
+        "texto": "Italia",
+        "puntos": 25
+      },
+      {
+        "texto": "China",
+        "puntos": 20
+      },
+      {
+        "texto": "Japón",
+        "puntos": 12
+      },
+      {
+        "texto": "Francia",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que te pide el cajero del banco",
+    "respuestas": [
+      {
+        "texto": "INE",
+        "puntos": 40
+      },
+      {
+        "texto": "Firma",
+        "puntos": 25
+      },
+      {
+        "texto": "Tarjeta",
+        "puntos": 20
+      },
+      {
+        "texto": "NIP",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué hay en una sala?",
+    "respuestas": [
+      {
+        "texto": "Sofá",
+        "puntos": 35
+      },
+      {
+        "texto": "Televisión",
+        "puntos": 25
+      },
+      {
+        "texto": "Mesa de centro",
+        "puntos": 20
+      },
+      {
+        "texto": "Alfombra",
+        "puntos": 12
+      },
+      {
+        "texto": "Cortinas",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Un motivo para llegar tarde",
+    "respuestas": [
+      {
+        "texto": "Tráfico",
+        "puntos": 40
+      },
+      {
+        "texto": "Dormirse",
+        "puntos": 25
+      },
+      {
+        "texto": "Transporte lleno",
+        "puntos": 20
+      },
+      {
+        "texto": "Olvidó algo",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un dulce típico mexicano",
+    "respuestas": [
+      {
+        "texto": "Mazapán",
+        "puntos": 35
+      },
+      {
+        "texto": "De la rosa",
+        "puntos": 25
+      },
+      {
+        "texto": "Paleta payaso",
+        "puntos": 20
+      },
+      {
+        "texto": "Bocadín",
+        "puntos": 12
+      },
+      {
+        "texto": "Cocada",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces cuando estás resfriado?",
+    "respuestas": [
+      {
+        "texto": "Tomar té",
+        "puntos": 40
+      },
+      {
+        "texto": "Descansar",
+        "puntos": 25
+      },
+      {
+        "texto": "Ir al médico",
+        "puntos": 20
+      },
+      {
+        "texto": "Tomar paracetamol",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que llevas a un picnic",
+    "respuestas": [
+      {
+        "texto": "Sándwiches",
+        "puntos": 35
+      },
+      {
+        "texto": "Refrescos",
+        "puntos": 25
+      },
+      {
+        "texto": "Fruta",
+        "puntos": 20
+      },
+      {
+        "texto": "Cobija",
+        "puntos": 12
+      },
+      {
+        "texto": "Platos",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una prenda que usas en invierno",
+    "respuestas": [
+      {
+        "texto": "Chamarra",
+        "puntos": 35
+      },
+      {
+        "texto": "Suéter",
+        "puntos": 25
+      },
+      {
+        "texto": "Bufanda",
+        "puntos": 20
+      },
+      {
+        "texto": "Gorro",
+        "puntos": 12
+      },
+      {
+        "texto": "Guantes",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces para relajarte?",
+    "respuestas": [
+      {
+        "texto": "Escuchar música",
+        "puntos": 35
+      },
+      {
+        "texto": "Ver series",
+        "puntos": 25
+      },
+      {
+        "texto": "Leer",
+        "puntos": 20
+      },
+      {
+        "texto": "Meditar",
+        "puntos": 12
+      },
+      {
+        "texto": "Caminar",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que tiras a la basura todos los días",
+    "respuestas": [
+      {
+        "texto": "Cáscaras",
+        "puntos": 40
+      },
+      {
+        "texto": "Servilletas",
+        "puntos": 25
+      },
+      {
+        "texto": "Botellas",
+        "puntos": 20
+      },
+      {
+        "texto": "Paquetes",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué hay en una taquería?",
+    "respuestas": [
+      {
+        "texto": "Salsas",
+        "puntos": 35
+      },
+      {
+        "texto": "Cebolla y cilantro",
+        "puntos": 25
+      },
+      {
+        "texto": "Limones",
+        "puntos": 20
+      },
+      {
+        "texto": "Trompo",
+        "puntos": 12
+      },
+      {
+        "texto": "Refrescos",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una razón para cambiar de trabajo",
+    "respuestas": [
+      {
+        "texto": "Mejor sueldo",
+        "puntos": 40
+      },
+      {
+        "texto": "Crecimiento",
+        "puntos": 25
+      },
+      {
+        "texto": "Mal ambiente",
+        "puntos": 20
+      },
+      {
+        "texto": "Cerca de casa",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un color de semáforo",
+    "respuestas": [
+      {
+        "texto": "Rojo",
+        "puntos": 40
+      },
+      {
+        "texto": "Verde",
+        "puntos": 25
+      },
+      {
+        "texto": "Amarillo",
+        "puntos": 20
+      },
+      {
+        "texto": "Otro",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un oficio común",
+    "respuestas": [
+      {
+        "texto": "Carpintero",
+        "puntos": 40
+      },
+      {
+        "texto": "Plomero",
+        "puntos": 25
+      },
+      {
+        "texto": "Electricista",
+        "puntos": 20
+      },
+      {
+        "texto": "Albañil",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué compras en la panadería?",
+    "respuestas": [
+      {
+        "texto": "Bolillo",
+        "puntos": 35
+      },
+      {
+        "texto": "Conchas",
+        "puntos": 25
+      },
+      {
+        "texto": "Cuernitos",
+        "puntos": 20
+      },
+      {
+        "texto": "Pan de muerto",
+        "puntos": 12
+      },
+      {
+        "texto": "Orejas",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que usas para limpiar",
+    "respuestas": [
+      {
+        "texto": "Escoba",
+        "puntos": 35
+      },
+      {
+        "texto": "Trapeador",
+        "puntos": 25
+      },
+      {
+        "texto": "Cloro",
+        "puntos": 20
+      },
+      {
+        "texto": "Jergas",
+        "puntos": 12
+      },
+      {
+        "texto": "Aspiradora",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una festividad mexicana",
+    "respuestas": [
+      {
+        "texto": "Día de Muertos",
+        "puntos": 40
+      },
+      {
+        "texto": "Independencia",
+        "puntos": 25
+      },
+      {
+        "texto": "Reyes Magos",
+        "puntos": 20
+      },
+      {
+        "texto": "Navidad",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué te piden en el aeropuerto?",
+    "respuestas": [
+      {
+        "texto": "Pasaporte",
+        "puntos": 40
+      },
+      {
+        "texto": "Identificación",
+        "puntos": 25
+      },
+      {
+        "texto": "Boleto",
+        "puntos": 20
+      },
+      {
+        "texto": "Equipaje",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una bebida caliente",
+    "respuestas": [
+      {
+        "texto": "Café",
+        "puntos": 40
+      },
+      {
+        "texto": "Té",
+        "puntos": 25
+      },
+      {
+        "texto": "Chocolate",
+        "puntos": 20
+      },
+      {
+        "texto": "Atole",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que haces antes de dormir",
+    "respuestas": [
+      {
+        "texto": "Cepillarse dientes",
+        "puntos": 40
+      },
+      {
+        "texto": "Apagar luces",
+        "puntos": 25
+      },
+      {
+        "texto": "Poner alarma",
+        "puntos": 20
+      },
+      {
+        "texto": "Revisar celular",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un lugar para hacer ejercicio",
+    "respuestas": [
+      {
+        "texto": "Gimnasio",
+        "puntos": 40
+      },
+      {
+        "texto": "Parque",
+        "puntos": 25
+      },
+      {
+        "texto": "Casa",
+        "puntos": 20
+      },
+      {
+        "texto": "Pista",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué llevas a una posada?",
+    "respuestas": [
+      {
+        "texto": "Ponche",
+        "puntos": 35
+      },
+      {
+        "texto": "Aguinaldos",
+        "puntos": 25
+      },
+      {
+        "texto": "Velitas",
+        "puntos": 20
+      },
+      {
+        "texto": "Papel picado",
+        "puntos": 12
+      },
+      {
+        "texto": "Piñata",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una marca de refresco conocida",
+    "respuestas": [
+      {
+        "texto": "Coca-Cola",
+        "puntos": 40
+      },
+      {
+        "texto": "Pepsi",
+        "puntos": 25
+      },
+      {
+        "texto": "Sprite",
+        "puntos": 20
+      },
+      {
+        "texto": "Fanta",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que siempre hay en una cocina",
+    "respuestas": [
+      {
+        "texto": "Sartén",
+        "puntos": 35
+      },
+      {
+        "texto": "Olla",
+        "puntos": 25
+      },
+      {
+        "texto": "Cuchillos",
+        "puntos": 20
+      },
+      {
+        "texto": "Platos",
+        "puntos": 12
+      },
+      {
+        "texto": "Vasos",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué metes en una maleta?",
+    "respuestas": [
+      {
+        "texto": "Ropa",
+        "puntos": 40
+      },
+      {
+        "texto": "Zapatos",
+        "puntos": 25
+      },
+      {
+        "texto": "Artículos de aseo",
+        "puntos": 20
+      },
+      {
+        "texto": "Cargadores",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una razón para llamar al 911",
+    "respuestas": [
+      {
+        "texto": "Emergencia médica",
+        "puntos": 40
+      },
+      {
+        "texto": "Incendio",
+        "puntos": 25
+      },
+      {
+        "texto": "Robo",
+        "puntos": 20
+      },
+      {
+        "texto": "Accidente",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces en vacaciones?",
+    "respuestas": [
+      {
+        "texto": "Ir a la playa",
+        "puntos": 40
+      },
+      {
+        "texto": "Visitar familia",
+        "puntos": 25
+      },
+      {
+        "texto": "Conocer pueblos",
+        "puntos": 20
+      },
+      {
+        "texto": "Descansar",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una fruta que comes con chile",
+    "respuestas": [
+      {
+        "texto": "Mango",
+        "puntos": 35
+      },
+      {
+        "texto": "Jícama",
+        "puntos": 25
+      },
+      {
+        "texto": "Sandía",
+        "puntos": 20
+      },
+      {
+        "texto": "Pepino",
+        "puntos": 12
+      },
+      {
+        "texto": "Piña",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que se usa en una boda",
+    "respuestas": [
+      {
+        "texto": "Vestido",
+        "puntos": 40
+      },
+      {
+        "texto": "Anillos",
+        "puntos": 25
+      },
+      {
+        "texto": "Ramo",
+        "puntos": 20
+      },
+      {
+        "texto": "Velo",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué hay en un salón de clases?",
+    "respuestas": [
+      {
+        "texto": "Pizarrón",
+        "puntos": 40
+      },
+      {
+        "texto": "Bancos",
+        "puntos": 25
+      },
+      {
+        "texto": "Maestro",
+        "puntos": 20
+      },
+      {
+        "texto": "Proyector",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un platillo típico de Navidad",
+    "respuestas": [
+      {
+        "texto": "Romeritos",
+        "puntos": 35
+      },
+      {
+        "texto": "Bacalao",
+        "puntos": 25
+      },
+      {
+        "texto": "Pavo",
+        "puntos": 20
+      },
+      {
+        "texto": "Pierna",
+        "puntos": 12
+      },
+      {
+        "texto": "Ensalada de manzana",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una botana para ver el fútbol",
+    "respuestas": [
+      {
+        "texto": "Papas",
+        "puntos": 35
+      },
+      {
+        "texto": "Nachos",
+        "puntos": 25
+      },
+      {
+        "texto": "Cacahuates",
+        "puntos": 20
+      },
+      {
+        "texto": "Alitas",
+        "puntos": 12
+      },
+      {
+        "texto": "Pizza",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que haces cuando no hay internet",
+    "respuestas": [
+      {
+        "texto": "Leer",
+        "puntos": 40
+      },
+      {
+        "texto": "Dormir",
+        "puntos": 25
+      },
+      {
+        "texto": "Platicar",
+        "puntos": 20
+      },
+      {
+        "texto": "Salir a caminar",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué compras en la verdulería?",
+    "respuestas": [
+      {
+        "texto": "Tomate",
+        "puntos": 35
+      },
+      {
+        "texto": "Cebolla",
+        "puntos": 25
+      },
+      {
+        "texto": "Chile",
+        "puntos": 20
+      },
+      {
+        "texto": "Zanahoria",
+        "puntos": 12
+      },
+      {
+        "texto": "Lechuga",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Un pasatiempo común",
+    "respuestas": [
+      {
+        "texto": "Leer",
+        "puntos": 35
+      },
+      {
+        "texto": "Cocinar",
+        "puntos": 25
+      },
+      {
+        "texto": "Jardinería",
+        "puntos": 20
+      },
+      {
+        "texto": "Pintar",
+        "puntos": 12
+      },
+      {
+        "texto": "Tocar música",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué llevan los tacos?",
+    "respuestas": [
+      {
+        "texto": "Carne",
+        "puntos": 35
+      },
+      {
+        "texto": "Salsa",
+        "puntos": 25
+      },
+      {
+        "texto": "Cebolla",
+        "puntos": 20
+      },
+      {
+        "texto": "Cilantro",
+        "puntos": 12
+      },
+      {
+        "texto": "Limón",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una razón para ir al dentista",
+    "respuestas": [
+      {
+        "texto": "Limpieza",
+        "puntos": 40
+      },
+      {
+        "texto": "Dolor",
+        "puntos": 25
+      },
+      {
+        "texto": "Caries",
+        "puntos": 20
+      },
+      {
+        "texto": "Ortodoncia",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que olvidas al salir de casa",
+    "respuestas": [
+      {
+        "texto": "Llaves",
+        "puntos": 40
+      },
+      {
+        "texto": "Celular",
+        "puntos": 25
+      },
+      {
+        "texto": "Cartera",
+        "puntos": 20
+      },
+      {
+        "texto": "Cubrebocas",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces en el tráfico?",
+    "respuestas": [
+      {
+        "texto": "Escuchar música",
+        "puntos": 40
+      },
+      {
+        "texto": "Revisar mensajes",
+        "puntos": 25
+      },
+      {
+        "texto": "Pitar",
+        "puntos": 20
+      },
+      {
+        "texto": "Hablar por manos libres",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un motivo para celebrar",
+    "respuestas": [
+      {
+        "texto": "Cumpleaños",
+        "puntos": 40
+      },
+      {
+        "texto": "Aniversario",
+        "puntos": 25
+      },
+      {
+        "texto": "Graduación",
+        "puntos": 20
+      },
+      {
+        "texto": "Ascenso",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué hay en una papelería?",
+    "respuestas": [
+      {
+        "texto": "Hojas",
+        "puntos": 35
+      },
+      {
+        "texto": "Plumas",
+        "puntos": 25
+      },
+      {
+        "texto": "Cuadernos",
+        "puntos": 20
+      },
+      {
+        "texto": "Cartulinas",
+        "puntos": 12
+      },
+      {
+        "texto": "Pegamento",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una comida callejera famosa",
+    "respuestas": [
+      {
+        "texto": "Tacos",
+        "puntos": 35
+      },
+      {
+        "texto": "Tortas",
+        "puntos": 25
+      },
+      {
+        "texto": "Gorditas",
+        "puntos": 20
+      },
+      {
+        "texto": "Tamales",
+        "puntos": 12
+      },
+      {
+        "texto": "Elotes",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué se hace en el cine?",
+    "respuestas": [
+      {
+        "texto": "Ver película",
+        "puntos": 40
+      },
+      {
+        "texto": "Comprar palomitas",
+        "puntos": 25
+      },
+      {
+        "texto": "Apagar celular",
+        "puntos": 20
+      },
+      {
+        "texto": "Guardar silencio",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una tarea del hogar",
+    "respuestas": [
+      {
+        "texto": "Lavar trastes",
+        "puntos": 35
+      },
+      {
+        "texto": "Barrer",
+        "puntos": 25
+      },
+      {
+        "texto": "Trapear",
+        "puntos": 20
+      },
+      {
+        "texto": "Tender la cama",
+        "puntos": 12
+      },
+      {
+        "texto": "Lavar ropa",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué usas para navegar por internet?",
+    "respuestas": [
+      {
+        "texto": "Celular",
+        "puntos": 40
+      },
+      {
+        "texto": "Computadora",
+        "puntos": 25
+      },
+      {
+        "texto": "Tablet",
+        "puntos": 20
+      },
+      {
+        "texto": "Smart TV",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un recuerdo que compras en la playa",
+    "respuestas": [
+      {
+        "texto": "Playera",
+        "puntos": 40
+      },
+      {
+        "texto": "Sombrero",
+        "puntos": 25
+      },
+      {
+        "texto": "Imán",
+        "puntos": 20
+      },
+      {
+        "texto": "Artesanías",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces para comer más sano?",
+    "respuestas": [
+      {
+        "texto": "Tomar agua",
+        "puntos": 40
+      },
+      {
+        "texto": "Comer ensalada",
+        "puntos": 25
+      },
+      {
+        "texto": "Evitar frituras",
+        "puntos": 20
+      },
+      {
+        "texto": "Cocinar en casa",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una sección del súper",
+    "respuestas": [
+      {
+        "texto": "Lácteos",
+        "puntos": 35
+      },
+      {
+        "texto": "Carnes",
+        "puntos": 25
+      },
+      {
+        "texto": "Panadería",
+        "puntos": 20
+      },
+      {
+        "texto": "Frutas y verduras",
+        "puntos": 12
+      },
+      {
+        "texto": "Limpieza",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué hay en un parque?",
+    "respuestas": [
+      {
+        "texto": "Juegos",
+        "puntos": 35
+      },
+      {
+        "texto": "Bancas",
+        "puntos": 25
+      },
+      {
+        "texto": "Árboles",
+        "puntos": 20
+      },
+      {
+        "texto": "Pista",
+        "puntos": 12
+      },
+      {
+        "texto": "Fuente",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Un motivo para apagar el celular",
+    "respuestas": [
+      {
+        "texto": "Reunión",
+        "puntos": 40
+      },
+      {
+        "texto": "Cine",
+        "puntos": 25
+      },
+      {
+        "texto": "Misa",
+        "puntos": 20
+      },
+      {
+        "texto": "Clase",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué llevas al gimnasio?",
+    "respuestas": [
+      {
+        "texto": "Tenis",
+        "puntos": 35
+      },
+      {
+        "texto": "Toalla",
+        "puntos": 25
+      },
+      {
+        "texto": "Agua",
+        "puntos": 20
+      },
+      {
+        "texto": "Audífonos",
+        "puntos": 12
+      },
+      {
+        "texto": "Guantes",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Un pecado capital",
+    "respuestas": [
+      {
+        "texto": "Ira",
+        "puntos": 35
+      },
+      {
+        "texto": "Gula",
+        "puntos": 25
+      },
+      {
+        "texto": "Pereza",
+        "puntos": 20
+      },
+      {
+        "texto": "Envidia",
+        "puntos": 12
+      },
+      {
+        "texto": "Soberbia",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué te piden en la taquilla del metro?",
+    "respuestas": [
+      {
+        "texto": "Tarjeta",
+        "puntos": 40
+      },
+      {
+        "texto": "Dinero",
+        "puntos": 25
+      },
+      {
+        "texto": "Boleto",
+        "puntos": 20
+      },
+      {
+        "texto": "Otro",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un corte de carne popular",
+    "respuestas": [
+      {
+        "texto": "Arrachera",
+        "puntos": 40
+      },
+      {
+        "texto": "Rib eye",
+        "puntos": 25
+      },
+      {
+        "texto": "T-bone",
+        "puntos": 20
+      },
+      {
+        "texto": "Diezmillo",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces cuando llueve fuerte?",
+    "respuestas": [
+      {
+        "texto": "Usar paraguas",
+        "puntos": 40
+      },
+      {
+        "texto": "Esperar",
+        "puntos": 25
+      },
+      {
+        "texto": "Pedir taxi",
+        "puntos": 20
+      },
+      {
+        "texto": "Ponerse impermeable",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una carne para tacos",
+    "respuestas": [
+      {
+        "texto": "Pastor",
+        "puntos": 35
+      },
+      {
+        "texto": "Asada",
+        "puntos": 25
+      },
+      {
+        "texto": "Suadero",
+        "puntos": 20
+      },
+      {
+        "texto": "Barbacoa",
+        "puntos": 12
+      },
+      {
+        "texto": "Carnitas",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué encuentras en un hotel?",
+    "respuestas": [
+      {
+        "texto": "Cama",
+        "puntos": 40
+      },
+      {
+        "texto": "Toallas",
+        "puntos": 25
+      },
+      {
+        "texto": "Televisión",
+        "puntos": 20
+      },
+      {
+        "texto": "Shampoo",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un tipo de queso mexicano",
+    "respuestas": [
+      {
+        "texto": "Oaxaca",
+        "puntos": 35
+      },
+      {
+        "texto": "Panela",
+        "puntos": 25
+      },
+      {
+        "texto": "Cotija",
+        "puntos": 20
+      },
+      {
+        "texto": "Chihuahua",
+        "puntos": 12
+      },
+      {
+        "texto": "Manchego",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué hay en un desayuno de hotel?",
+    "respuestas": [
+      {
+        "texto": "Huevos",
+        "puntos": 35
+      },
+      {
+        "texto": "Fruta",
+        "puntos": 25
+      },
+      {
+        "texto": "Café",
+        "puntos": 20
+      },
+      {
+        "texto": "Pan",
+        "puntos": 12
+      },
+      {
+        "texto": "Jugo",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "Una red social popular",
+    "respuestas": [
+      {
+        "texto": "Facebook",
+        "puntos": 40
+      },
+      {
+        "texto": "Instagram",
+        "puntos": 25
+      },
+      {
+        "texto": "TikTok",
+        "puntos": 20
+      },
+      {
+        "texto": "X (Twitter)",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué usas para escribir?",
+    "respuestas": [
+      {
+        "texto": "Pluma",
+        "puntos": 40
+      },
+      {
+        "texto": "Lápiz",
+        "puntos": 25
+      },
+      {
+        "texto": "Teclado",
+        "puntos": 20
+      },
+      {
+        "texto": "Marcador",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un tipo de pan dulce",
+    "respuestas": [
+      {
+        "texto": "Concha",
+        "puntos": 35
+      },
+      {
+        "texto": "Cuernito",
+        "puntos": 25
+      },
+      {
+        "texto": "Oreja",
+        "puntos": 20
+      },
+      {
+        "texto": "Mantecada",
+        "puntos": 12
+      },
+      {
+        "texto": "Chocolatín",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué te piden para una cuenta bancaria?",
+    "respuestas": [
+      {
+        "texto": "INE",
+        "puntos": 40
+      },
+      {
+        "texto": "Comprobante de domicilio",
+        "puntos": 25
+      },
+      {
+        "texto": "CURP",
+        "puntos": 20
+      },
+      {
+        "texto": "RFC",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una salsa típica",
+    "respuestas": [
+      {
+        "texto": "Roja",
+        "puntos": 40
+      },
+      {
+        "texto": "Verde",
+        "puntos": 25
+      },
+      {
+        "texto": "Macha",
+        "puntos": 20
+      },
+      {
+        "texto": "Pico de gallo",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces al llegar a casa?",
+    "respuestas": [
+      {
+        "texto": "Quitarse zapatos",
+        "puntos": 40
+      },
+      {
+        "texto": "Lavarse manos",
+        "puntos": 25
+      },
+      {
+        "texto": "Encender TV",
+        "puntos": 20
+      },
+      {
+        "texto": "Preparar comida",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Algo que encuentras en el baño",
+    "respuestas": [
+      {
+        "texto": "Jabón",
+        "puntos": 35
+      },
+      {
+        "texto": "Shampoo",
+        "puntos": 25
+      },
+      {
+        "texto": "Papel",
+        "puntos": 20
+      },
+      {
+        "texto": "Toalla",
+        "puntos": 12
+      },
+      {
+        "texto": "Cepillo de dientes",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué usas para protegerte del sol?",
+    "respuestas": [
+      {
+        "texto": "Bloqueador",
+        "puntos": 40
+      },
+      {
+        "texto": "Gorra",
+        "puntos": 25
+      },
+      {
+        "texto": "Lentes",
+        "puntos": 20
+      },
+      {
+        "texto": "Sombrilla",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una actividad del Día de Muertos",
+    "respuestas": [
+      {
+        "texto": "Ofrenda",
+        "puntos": 40
+      },
+      {
+        "texto": "Pan de muerto",
+        "puntos": 25
+      },
+      {
+        "texto": "Visitar panteón",
+        "puntos": 20
+      },
+      {
+        "texto": "Calaveritas",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué compras en una tlapalería?",
+    "respuestas": [
+      {
+        "texto": "Clavos",
+        "puntos": 40
+      },
+      {
+        "texto": "Pintura",
+        "puntos": 25
+      },
+      {
+        "texto": "Brochas",
+        "puntos": 20
+      },
+      {
+        "texto": "Focos",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Una forma de pago",
+    "respuestas": [
+      {
+        "texto": "Efectivo",
+        "puntos": 40
+      },
+      {
+        "texto": "Tarjeta",
+        "puntos": 25
+      },
+      {
+        "texto": "Transferencia",
+        "puntos": 20
+      },
+      {
+        "texto": "CoDi",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué haces un lunes por la mañana?",
+    "respuestas": [
+      {
+        "texto": "Ir al trabajo",
+        "puntos": 40
+      },
+      {
+        "texto": "Desayunar rápido",
+        "puntos": 25
+      },
+      {
+        "texto": "Llevar a los niños",
+        "puntos": 20
+      },
+      {
+        "texto": "Revisar correos",
+        "puntos": 15
+      }
+    ]
+  },
+  {
+    "pregunta": "Un tipo de taco",
+    "respuestas": [
+      {
+        "texto": "Pastor",
+        "puntos": 35
+      },
+      {
+        "texto": "Barbacoa",
+        "puntos": 25
+      },
+      {
+        "texto": "Guisado",
+        "puntos": 20
+      },
+      {
+        "texto": "Canasta",
+        "puntos": 12
+      },
+      {
+        "texto": "Birria",
+        "puntos": 8
+      }
+    ]
+  },
+  {
+    "pregunta": "¿Qué hay en una fonda?",
+    "respuestas": [
+      {
+        "texto": "Menú del día",
+        "puntos": 40
+      },
+      {
+        "texto": "Agua fresca",
+        "puntos": 25
+      },
+      {
+        "texto": "Salsas",
+        "puntos": 20
+      },
+      {
+        "texto": "Tortillas",
+        "puntos": 15
+      }
+    ]
+  }
+]

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>100 Mexicanos — MVP</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div class="app">
+  <!-- Encabezado -->
+  <header>
+    <div class="brand">🎮 100 Mexicanos — MVP</div>
+    <div class="status">
+      <span class="pill">Ronda: <span id="roundLabel">—</span></span>
+      <span class="pill" id="multPill">Multiplicador: x<span id="multLabel">1</span></span>
+      <span class="pill">Fase: <span id="phaseLabel" class="phase">LOBBY</span></span>
+    </div>
+  </header>
+
+  <!-- Marcador -->
+  <div class="scoreboard">
+    <div class="team" id="teamA">
+      <h2 id="labelA">Equipo 1</h2>
+      <div class="points" id="scoreA">0</div>
+    </div>
+    <div class="pot">
+      <label>Pozo</label>
+      <div class="value" id="poolTop">0</div>
+    </div>
+    <div class="team" id="teamB">
+      <h2 id="labelB">Equipo 2</h2>
+      <div class="points" id="scoreB">0</div>
+    </div>
+  </div>
+
+  <!-- Zona principal -->
+  <div class="main">
+    <section class="board">
+      <div class="overlayX" id="overlayX">
+        <div class="bigX" id="overlayXText">✖</div>
+      </div>
+      <div class="toast" id="toast"></div>
+      <div class="question" id="question">
+        Ingresa los nombres de los equipos para iniciar
+      </div>
+      <div class="answers" id="answers"></div>
+      <div class="footer">Pozo de la ronda: <span class="ok" id="pool">0</span> puntos</div>
+    </section>
+  </div>
+
+  <!-- Ayuda -->
+  <div class="help">
+    <div>
+      <span class="kbd">Enter</span> Avanzar • 
+      <span class="kbd">X</span> Error • 
+      <span class="kbd">/</span> Reiniciar • 
+      <span class="kbd">R</span> Rebarajar
+    </div>
+    <div>
+      <span class="kbd">1–6</span> Revelar • 
+      <span class="kbd">L</span> Recargar preguntas • 
+      <span class="kbd">A</span>/<span class="kbd">B</span> Cambiar turno
+    </div>
+  </div>
+
+  <!-- Configuración reducida -->
+  <div class="config">
+    <label style="display:flex;align-items:center;gap:8px">
+      <input id="chkRandom" type="checkbox" /> Aleatorio
+    </label>
+    <input id="inpThreshold" type="number" min="1" value="500" title="Umbral de victoria" />
+    <button id="btnReset" class="btn warn">⟲ Reiniciar</button>
+    <div id="errorBox" class="error-msg"></div>
+  </div>
+</div>
+
+<!-- Bienvenida -->
+<div class="welcome" id="welcome">
+  <div class="welcome-card">
+    <h1>🎮 100 Mexicanos</h1>
+    <p class="subtitle">Ingresa los nombres de los equipos para comenzar</p>
+
+    <div class="welcome-row">
+      <label>Equipo A</label>
+      <input id="wNameA" placeholder="Nombre del Equipo A" maxlength="32" />
+    </div>
+
+    <div class="welcome-row">
+      <label>Equipo B</label>
+      <input id="wNameB" placeholder="Nombre del Equipo B" maxlength="32" />
+    </div>
+
+    <div class="welcome-actions">
+      <button id="wStartBtn" class="btn">Comenzar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Script principal -->
+<script type="module">
+import { start, state } from './js/main.js';
+
+const welcome = document.getElementById('welcome');
+const wNameA = document.getElementById('wNameA');
+const wNameB = document.getElementById('wNameB');
+const wStartBtn = document.getElementById('wStartBtn');
+
+wStartBtn.addEventListener('click', () => {
+  const a = (wNameA.value || '').trim();
+  const b = (wNameB.value || '').trim();
+  if (!a || !b) {
+    alert('Debes ingresar ambos nombres de equipo');
+    return;
+  }
+
+  // Guarda en state y actualiza labels
+  state.names.A = a;
+  state.names.B = b;
+  document.getElementById('labelA').textContent = a;
+  document.getElementById('labelB').textContent = b;
+
+  // Oculta bienvenida
+  welcome.classList.add('hidden');
+
+  // Arranca el juego directamente
+  start();
+});
+</script>
+</body>
+</html>
