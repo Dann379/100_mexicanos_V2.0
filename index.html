@@ -52,7 +52,7 @@
   <!-- Ayuda -->
   <div class="help">
     <div>
-      <span class="kbd">Enter</span> Avanzar • 
+      <span class="kbd">Enter</span> Avanzar / Revelar • 
       <span class="kbd">X</span> Error • 
       <span class="kbd">/</span> Reiniciar • 
       <span class="kbd">R</span> Rebarajar
@@ -60,16 +60,19 @@
     <div>
       <span class="kbd">1–6</span> Revelar • 
       <span class="kbd">L</span> Recargar preguntas • 
-      <span class="kbd">A</span>/<span class="kbd">B</span> Cambiar turno
+      <span class="kbd">A</span>/<span class="kbd">B</span> Cambiar turno •
+      <span class="kbd">V</span> Validar preguntas
     </div>
   </div>
 
-  <!-- Configuración reducida -->
+  <!-- Configuración -->
   <div class="config">
     <label style="display:flex;align-items:center;gap:8px">
       <input id="chkRandom" type="checkbox" /> Aleatorio
     </label>
     <input id="inpThreshold" type="number" min="1" value="500" title="Umbral de victoria" />
+    <button id="btnValidate" class="btn">✔ Validar</button>
+    <button id="btnExport" class="btn">⬇ Exportar</button>
     <button id="btnReset" class="btn warn">⟲ Reiniciar</button>
     <div id="errorBox" class="error-msg"></div>
   </div>
@@ -97,7 +100,7 @@
   </div>
 </div>
 
-<!-- Script principal (solo uno) -->
+<!-- Script principal -->
 <script type="module" src="./js/main.js"></script>
 </body>
 </html>

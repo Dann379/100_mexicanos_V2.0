@@ -7,7 +7,8 @@ export const currentIndex = (state) =>
     ? state.roundOrder[state.roundCursor]
     : state.roundIndex;
 
-export const allRevealed = (state, q) => state.revealed.size >= q.respuestas.length;
+// ✅ Ahora “todas reveladas” significa: TODOS LOS PUNTOS revelados
+export const allRevealed = (state, q) => state.revealedPts.size >= q.respuestas.length;
 
 export function startGame(state, DATA, startTeam) {
   if (!DATA.length) throw new Error('No hay preguntas');
@@ -18,6 +19,7 @@ export function startGame(state, DATA, startTeam) {
   state.multiplier = computeMultiplierFromRound(1);
   state.phase = 'ROUND';
   state.revealed = new Set();
+  state.revealedPts = new Set();
   state.errors = 0;
   state.pool = 0;
   state.turn = startTeam;
@@ -25,30 +27,44 @@ export function startGame(state, DATA, startTeam) {
   state.originalTeam = startTeam;
 }
 
-export function reveal(state, round, idx, fromUI=false) {
+/* ------------------- Revelado en DOS pasos ------------------- */
+/* 1) Revela SOLO el TEXTO (no suma puntos) */
+export function revealText(state, round, idx, fromUI=false){
   const item = round?.respuestas[idx];
   if (!item) { if (state.phase === 'STEAL' && fromUI) failSteal(state); return; }
-  const wasHidden = !state.revealed.has(idx);
-
-  if (['INTER','LOBBY','FINAL'].includes(state.phase)) {
-    if (wasHidden) state.revealed.add(idx);
-    return;
-  }
-  if (state.phase === 'STEAL') {
-    if (fromUI && wasHidden) {
-      state.revealed.add(idx);
-      state.pool += item.puntos * state.multiplier;
-      assignTo(state, state.stealTeam); // acierto en STEAL: se lo lleva quien roba
-    } else failSteal(state);            // fallo en STEAL: vuelve al original
-    return;
-  }
-
-  if (!wasHidden) return;
+  if (state.revealed.has(idx)) return; // ya revelado el texto
   state.revealed.add(idx);
-  state.pool += item.puntos * state.multiplier;
+}
+
+/* 2) Revela el PUNTAJE (suma al pozo y puede asignar) */
+export function revealPoints(state, round, idx, fromUI=false){
+  const item = round?.respuestas[idx];
+  if (!item) { if (state.phase === 'STEAL' && fromUI) failSteal(state); return; }
+  if (!state.revealed.has(idx)) state.revealed.add(idx); // si alguien se saltó el paso 1, lo corregimos
+  if (state.revealedPts.has(idx)) return; // ya revelado puntaje
+
+  state.revealedPts.add(idx);
+
+  // Sumar al pozo
+  state.pool += (item.puntos * state.multiplier);
+
+  if (state.phase === 'STEAL') {
+    // ✅ Acierto en STEAL: se asigna al equipo que roba y cierra la ronda
+    assignTo(state, state.stealTeam);
+    return;
+  }
+
+  // ROUND normal: si ya se revelaron TODOS los puntos, adjudica al equipo en turno
   if (allRevealed(state, round)) assignTo(state, state.turn);
 }
 
+/* Compat de eventos antiguos (si un sitio llama 'reveal', lo convertimos a la lógica nueva) */
+export function reveal(state, round, idx, fromUI=false){
+  if (!state.revealed.has(idx)) return revealText(state, round, idx, fromUI);
+  return revealPoints(state, round, idx, fromUI);
+}
+
+/* ----------------------- Errores / STEAL --------------------- */
 export function addError(state) {
   if (state.phase === 'STEAL') { assignTo(state, otherTeam(state.stealTeam)); return; }
   if (state.phase !== 'ROUND') return;
@@ -56,7 +72,7 @@ export function addError(state) {
   if (state.errors >= 3) {
     state.phase = 'STEAL';
     state.stealTeam = otherTeam(state.turn);
-    state.turn = state.stealTeam;  // ← 🔹 cambia el turno visual/lógico al que roba
+    state.turn = state.stealTeam;  // turno visual/lógico pasa al que roba
   }
 }
 
@@ -83,6 +99,7 @@ export function nextRound(state, DATA, startTeam) {
   state.multiplier = computeMultiplierFromRound(state.roundCursor + 1);
   state.phase = 'ROUND';
   state.revealed = new Set();
+  state.revealedPts = new Set();
   state.errors = 0;
   state.pool = 0;
   state.turn = startTeam;
