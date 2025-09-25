@@ -97,35 +97,7 @@
   </div>
 </div>
 
-<!-- Script principal -->
-<script type="module">
-import { start, state } from './js/main.js';
-
-const welcome = document.getElementById('welcome');
-const wNameA = document.getElementById('wNameA');
-const wNameB = document.getElementById('wNameB');
-const wStartBtn = document.getElementById('wStartBtn');
-
-wStartBtn.addEventListener('click', () => {
-  const a = (wNameA.value || '').trim();
-  const b = (wNameB.value || '').trim();
-  if (!a || !b) {
-    alert('Debes ingresar ambos nombres de equipo');
-    return;
-  }
-
-  // Guarda en state y actualiza labels
-  state.names.A = a;
-  state.names.B = b;
-  document.getElementById('labelA').textContent = a;
-  document.getElementById('labelB').textContent = b;
-
-  // Oculta bienvenida
-  welcome.classList.add('hidden');
-
-  // Arranca el juego directamente
-  start();
-});
-</script>
+<!-- Script principal (solo uno) -->
+<script type="module" src="./js/main.js"></script>
 </body>
 </html>

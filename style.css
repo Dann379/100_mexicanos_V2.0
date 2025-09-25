@@ -133,3 +133,7 @@ header{
 .welcome-actions .btn:hover{ filter:brightness(1.1) }
 
 .welcome .hint{ margin:12px 0 0; color:var(--muted); font-size:12px; text-align:center }
+.team.active{
+  outline: 2px solid var(--acc, #28e0a3);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--acc, #28e0a3) 40%, transparent);
+}

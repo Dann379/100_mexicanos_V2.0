@@ -26,7 +26,7 @@ export function startGame(state, DATA, startTeam) {
 }
 
 export function reveal(state, round, idx, fromUI=false) {
-  const item = round.respuestas[idx];
+  const item = round?.respuestas[idx];
   if (!item) { if (state.phase === 'STEAL' && fromUI) failSteal(state); return; }
   const wasHidden = !state.revealed.has(idx);
 
@@ -38,8 +38,8 @@ export function reveal(state, round, idx, fromUI=false) {
     if (fromUI && wasHidden) {
       state.revealed.add(idx);
       state.pool += item.puntos * state.multiplier;
-      assignTo(state, state.stealTeam);
-    } else failSteal(state);
+      assignTo(state, state.stealTeam); // acierto en STEAL: se lo lleva quien roba
+    } else failSteal(state);            // fallo en STEAL: vuelve al original
     return;
   }
 
@@ -56,6 +56,7 @@ export function addError(state) {
   if (state.errors >= 3) {
     state.phase = 'STEAL';
     state.stealTeam = otherTeam(state.turn);
+    state.turn = state.stealTeam;  // ← 🔹 cambia el turno visual/lógico al que roba
   }
 }
 

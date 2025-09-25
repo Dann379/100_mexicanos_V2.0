@@ -14,20 +14,22 @@ export const els = {
   labelB:    $('#labelB'),
   teamA:     $('#teamA'),
   teamB:     $('#teamB'),
-  nameA:     $('#nameA'),
-  nameB:     $('#nameB'),
-  startTeam: $('#startTeam'),
-  toast:     $('#toast'),
-  overlayX:  $('#overlayX'),
-  overlayXText: $('#overlayXText'),
+
+  // Barra de config vigente
   chkRandom: $('#chkRandom'),
   inpThreshold: $('#inpThreshold'),
   errorBox:  $('#errorBox'),
   btnReset:  $('#btnReset'),
+
+  // Bienvenida real en el HTML
   welcome:  $('#welcome'),
   wNameA:   $('#wNameA'),
   wNameB:   $('#wNameB'),
-  wStart:   $('#wStartTeam'),
+  // No existe selector de "equipo que inicia" en la bienvenida; arrancamos con 'A' por defecto
   wStartBtn:$('#wStartBtn'),
 
+  // Overlays y toast
+  toast:     $('#toast'),
+  overlayX:  $('#overlayX'),
+  overlayXText: $('#overlayXText'),
 };
