@@ -50,6 +50,9 @@
   </div>
 
   <!-- Ayuda -->
+ <!-- ...encabezado y tablero iguales... -->
+
+  <!-- Ayuda -->
   <div class="help">
     <div>
       <span class="kbd">Enter</span> Avanzar / Revelar • 
@@ -60,10 +63,14 @@
     <div>
       <span class="kbd">1–6</span> Revelar • 
       <span class="kbd">L</span> Recargar preguntas • 
-      <span class="kbd">A</span>/<span class="kbd">B</span> Cambiar turno •
+      <span class="kbd">←</span>/<span class="kbd">→</span> Cambiar turno •
+      <span class="kbd">↓</span> Sonido “en tablero” •
       <span class="kbd">V</span> Validar preguntas
     </div>
   </div>
+
+<!-- ...resto del HTML igual... -->
+
 
   <!-- Configuración -->
   <div class="config">
@@ -73,6 +80,10 @@
     <input id="inpThreshold" type="number" min="1" value="500" title="Umbral de victoria" />
     <button id="btnValidate" class="btn">✔ Validar</button>
     <button id="btnExport" class="btn">⬇ Exportar</button>
+    <button id="btnPresenter" class="btn">🎤 Presentador</button>
+<button id="btnFullscreen" class="btn">⛶ Pantalla</button>
+<button id="btnTheme" class="btn">🌙 Tema</button>
+
     <button id="btnReset" class="btn warn">⟲ Reiniciar</button>
     <div id="errorBox" class="error-msg"></div>
   </div>

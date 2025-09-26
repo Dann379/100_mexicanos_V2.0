@@ -67,5 +67,10 @@ export const sfx = {
     // Buzz corto
     beep({freq:160,dur:0.12,type:'square',gain:0.06});
     setTimeout(()=>beep({freq:140,dur:0.10,type:'square',gain:0.05}), 70);
+  },
+  async board(){  // 🔊 “ya está en tablero”
+    await ensureRunning();
+    // Tono corto y amable (descendente)
+    seq([{freq:659.25,dur:0.06,type:'triangle',gain:0.05},{freq:523.25,dur:0.06,type:'triangle',gain:0.04}], 0.015);
   }
 };

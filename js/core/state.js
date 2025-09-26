@@ -21,8 +21,7 @@ export function defaultState({ randomOn=false, winThreshold=500 }={}){
     multiplier: 1,
 
     // estado de la ronda actual
-    revealed: new Set(),       // índices con TEXTO revelado
-    revealedPts: new Set(),    // índices con PUNTOS revelados
+    revealed: new Set(),       // índices revelados (texto + puntos)
     errors: 0,
     pool: 0,
 

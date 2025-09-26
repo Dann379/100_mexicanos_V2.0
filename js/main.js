@@ -1,16 +1,18 @@
 import { defaultState } from './core/state.js';
-import { currentIndex, nextRound, allRevealed, startGame, revealText, revealPoints } from './core/logic.js';
+import { currentIndex, nextRound, allRevealed, startGame, reveal } from './core/logic.js';
 import { els } from './ui/elements.js';
 import { renderHeader, renderQuestion } from './ui/render.js';
 import { toast, sfx } from './ui/effects.js';
 import { wireWelcome, wireEvents } from './ui/events.js';
 
+/* ===================== Preferencias (localStorage) ===================== */
 const LS = { RANDOM:'randomMode', THRESH:'winThreshold' };
-const loadPrefRandom = () => localStorage.getItem(LS.RANDOM)!=='0';
-const savePrefRandom = (on) => localStorage.setItem(LS.RANDOM, on?'1':'0');
-const loadPrefThreshold = () => { const v = parseInt(localStorage.getItem(LS.THRESH)||'',10); return Number.isFinite(v)&&v>0?v:500; };
-const savePrefThreshold = (n) => { if(Number.isFinite(n)&&n>0) localStorage.setItem(LS.THRESH, String(n)); };
+const loadPrefRandom   = () => localStorage.getItem(LS.RANDOM)!=='0';
+const savePrefRandom   = (on) => localStorage.setItem(LS.RANDOM, on?'1':'0');
+const loadPrefThreshold= () => { const v = parseInt(localStorage.getItem(LS.THRESH)||'',10); return Number.isFinite(v)&&v>0?v:500; };
+const savePrefThreshold= (n) => { if(Number.isFinite(n)&&n>0) localStorage.setItem(LS.THRESH, String(n)); };
 
+/* ===================== State (una sola referencia) ===================== */
 const state = defaultState({ randomOn: loadPrefRandom(), winThreshold: loadPrefThreshold() });
 function resetStateInPlace(prefs){
   const fresh = defaultState(prefs);
@@ -18,6 +20,7 @@ function resetStateInPlace(prefs){
   for (const [k,v] of Object.entries(fresh)) state[k] = v;
 }
 
+/* ===================== Carga de preguntas ===================== */
 let dataReadyResolve;
 const dataReady = new Promise(res => (dataReadyResolve = res));
 const ensureDataReady = () => dataReady;
@@ -50,7 +53,7 @@ async function loadData(){
 }
 window.loadData = loadData;
 
-/* -------------------- Render -------------------- */
+/* ===================== Render compuesto ===================== */
 function render(){
   document.body?.setAttribute('data-phase', state.phase);
   renderHeader(state);
@@ -59,23 +62,14 @@ function render(){
   renderQuestion(state, round, lobbyMsg);
 }
 
-/* ------------- Enter inteligente ------------- */
+/* ===================== Enter inteligente (ROUND) ===================== */
 function revealNext(){
   const round = DATA()[currentIndex(state)];
   if (!round) return false;
 
-  // 1) Prioriza texto pendiente
   for (let i=0; i<round.respuestas.length; i++){
     if (!state.revealed.has(i)){
-      revealText(state, round, i, true);
-      sfx.reveal();
-      return true;
-    }
-  }
-  // 2) Luego puntajes pendientes
-  for (let i=0; i<round.respuestas.length; i++){
-    if (!state.revealedPts.has(i)){
-      revealPoints(state, round, i, true);
+      reveal(state, round, i, true);
       sfx.reveal();
       return true;
     }
@@ -83,17 +77,19 @@ function revealNext(){
   return false;
 }
 
+/* ===================== Guardas de avance ===================== */
 function guardedAdvance(){
   if (state.phase==='LOBBY') { start(); render(); return; }
 
   if (state.phase==='ROUND'){
-    const did = revealNext(); // texto → puntos → nada
+    const did = revealNext(); // revela la siguiente; si era la última, assignTo -> INTER
     render();
     return;
   }
 
   if (state.phase==='INTER'){
-    if (!allRevealed(state, DATA()[currentIndex(state)])) { toast(els.toast,'Revela todos los puntos antes de continuar'); return; }
+    const round = DATA()[currentIndex(state)];
+    if (!allRevealed(state, round)) { toast(els.toast,'Revela todas las respuestas antes de continuar'); return; }
     if (state.pendingFinal && state.winner) { state.phase='FINAL'; render(); return; }
     nextRound(state, DATA(), state.originalTeam); render(); return;
   }
@@ -101,7 +97,7 @@ function guardedAdvance(){
   if (state.phase==='FINAL'){ toast(els.toast,'Juego terminado. Pulsa / para reiniciar'); return; }
 }
 
-/* ---------------- Start / Reset ---------------- */
+/* ===================== Start / Reset ===================== */
 function start(isReset=false){
   if (isReset){
     const prefs = { randomOn: state.randomOn, winThreshold: state.winThreshold };
@@ -118,7 +114,7 @@ function start(isReset=false){
   render();
 }
 
-/* --------------- Preferencias UI --------------- */
+/* ===================== Preferencias UI (LS) ===================== */
 if (els.chkRandom){
   els.chkRandom.checked = state.randomOn;
   els.chkRandom.addEventListener('change', ()=>{
@@ -135,7 +131,7 @@ if (els.inpThreshold){
   });
 }
 
-/* ----------------- Exportar JSON ---------------- */
+/* ===================== Exportar JSON ===================== */
 function downloadJSON(obj, name='resultado_100mex.json'){
   const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
@@ -160,7 +156,7 @@ function exportResults(){
 }
 els.btnExport?.addEventListener('click', exportResults);
 
-/* ---------------- Validación (botón/tecla V) ------------- */
+/* ===================== Validación preguntas (botón/tecla V) ===================== */
 function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
 function validateQuestions(arr){
   const issues = [];
@@ -205,19 +201,47 @@ function runValidation(){
 els.btnValidate?.addEventListener('click', runValidation);
 window.__validate = runValidation;
 
-/* ----------------- Eventos base ---------------- */
-import { wireEvents as __wire } from './ui/events.js';
-__wire(state, null, els, start, guardedAdvance, (t)=>{ state.turn=t; render(); }, render);
+/* ===================== UI extra: Presentador / Pantalla / Tema ===================== */
+const btnPresenter  = document.getElementById('btnPresenter');
+const btnFullscreen = document.getElementById('btnFullscreen');
+const btnTheme      = document.getElementById('btnTheme');
 
-/* -------------------- Init --------------------- */
+btnPresenter?.addEventListener('click', ()=>{
+  document.body.classList.toggle('presenter');
+  toast(els.toast, document.body.classList.contains('presenter') ? 'Modo presentador ON' : 'Modo presentador OFF');
+});
+
+btnFullscreen?.addEventListener('click', async ()=>{
+  try{
+    if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+    else await document.exitFullscreen();
+  }catch{}
+});
+
+const THEME_KEY = 'ui_theme_dark';
+if (localStorage.getItem(THEME_KEY)==='1') document.body.classList.add('dark');
+btnTheme?.addEventListener('click', ()=>{
+  document.body.classList.toggle('dark');
+  const on = document.body.classList.contains('dark');
+  localStorage.setItem(THEME_KEY, on?'1':'0');
+  toast(els.toast, on ? 'Tema claro' : 'Tema oscuro'); // mensaje breve
+});
+
+/* ===================== Eventos base ===================== */
+// setTurn callback: cambia turno y re-render
+const setTurn = (t)=>{ state.turn = t; render(); };
+
+import { wireEvents as __wire } from './ui/events.js';
+__wire(state, null, els, start, guardedAdvance, setTurn, render);
+
+/* ===================== Init ===================== */
 loadData(); 
 render();
 
-/* --------------- Bienvenida ------------------- */
-import { wireWelcome as __welcome } from './ui/events.js';
+/* ===================== Bienvenida ===================== */
 if (els.welcome) {
   els.welcome.classList.remove('hidden');
-  __welcome(
+  wireWelcome(
     state, 
     els, 
     ({a,b})=>{

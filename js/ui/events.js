@@ -1,4 +1,4 @@
-import { revealText, revealPoints, addError, currentIndex } from '../core/logic.js';
+import { reveal, addError, currentIndex } from '../core/logic.js';
 import { toast, bigX, sfx } from './effects.js';
 
 let wired = false;
@@ -10,9 +10,9 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
   function handleIndex(i){
     const round = DATA()[currentIndex(state)];
     if (!round) return;
-    if (!state.revealed.has(i)) { revealText(state, round, i, true); sfx.reveal(); rerender(); return; }
-    if (!state.revealedPts.has(i)) { revealPoints(state, round, i, true); sfx.reveal(); rerender(); return; }
-    // ya tiene texto + puntos → no hacemos nada
+    reveal(state, round, i, true);
+    sfx.reveal();
+    rerender();
   }
 
   document.addEventListener('keydown', (e)=>{
@@ -27,6 +27,11 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
 
     if (key === 'Enter') { guardedAdvance(); rerender(); return; }
     if (key === '/' || key === '?') { start(true); rerender(); return; }
+
+    // ← / → / ↓
+    if (key === 'ArrowLeft')  { setTurn('A'); e.preventDefault(); return; }
+    if (key === 'ArrowRight') { setTurn('B'); e.preventDefault(); return; }
+    if (key === 'ArrowDown')  { sfx.board(); e.preventDefault(); return; }
 
     const k = (key.length===1 ? key.toLowerCase() : key.toLowerCase?.());
 
@@ -51,15 +56,13 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
     if (k === 'd') {
       const round = DATA()[currentIndex(state)];
       console.log('[DEBUG] phase:', state.phase, 'cursor:', state.roundCursor, 'turn:', state.turn, 'stealTeam:', state.stealTeam);
-      console.log('[DEBUG] revealed(text):', [...state.revealed], 'revealed(pts):', [...state.revealedPts], 'pool:', state.pool);
+      console.log('[DEBUG] revealed:', [...state.revealed], 'pool:', state.pool);
       console.log('[DEBUG] scores:', state.scoreA, state.scoreB, 'round:', round);
       toast(els.toast, 'Debug en consola');
       return;
     }
 
     if (['1','2','3','4','5','6'].includes(k)) { handleIndex(Number(k)-1); return; }
-    if (k === 'a') { setTurn('A'); return; }
-    if (k === 'b') { setTurn('B'); return; }
   });
 
   els.answers.addEventListener('click', (e)=>{
@@ -76,6 +79,10 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
 export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
   if (!els.welcome) return;
 
+  // 🔧 Asegura que el overlay esté visible y el foco vaya al input A
+  els.welcome.classList.remove('hidden');
+  setTimeout(()=> els.wNameA?.focus(), 0);
+
   const submit = async () => {
     const a = (els.wNameA?.value || '').trim();
     const b = (els.wNameB?.value || '').trim();
@@ -90,15 +97,32 @@ export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
     onSubmit({ a, b, start: 'A' });
     els.welcome.classList.add('hidden');
 
+    // Carga de preguntas (si aún no) + sonido de inicio
     await ensureDataReady?.();
-    sfx.welcome();
+    try{ (await import('./effects.js')).sfx?.welcome?.(); }catch{}
     start();
   };
 
-  els.wStartBtn?.addEventListener('click', submit);
+  // Botón
+  els.wStartBtn?.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); submit(); });
+
+  // Enter en inputs (y no propagamos para que no interfiera nada global)
   [els.wNameA, els.wNameB].forEach(inp=>{
     inp?.addEventListener('keydown', (e)=>{
-      if (e.key === 'Enter') submit();
+      if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); submit(); }
     });
   });
+
+  // Enter global mientras la bienvenida esté visible → intenta enviar si ambos campos tienen valor
+  const onDocEnter = (e)=>{
+    const visible = !!(els.welcome && !els.welcome.classList.contains('hidden'));
+    if (!visible) return document.removeEventListener('keydown', onDocEnter);
+    if (e.key === 'Enter') {
+      const a = (els.wNameA?.value || '').trim();
+      const b = (els.wNameB?.value || '').trim();
+      if (a && b) { e.preventDefault(); submit(); }
+    }
+  };
+  document.addEventListener('keydown', onDocEnter);
 }
+

@@ -13,7 +13,6 @@ export function renderHeader(state){
   els.labelA.textContent = state.names.A || 'Equipo 1';
   els.labelB.textContent = state.names.B || 'Equipo 2';
 
-  // quién se ilumina: en STEAL quien roba, si no el turno normal
   const activeTeam = state.phase === 'STEAL' ? state.stealTeam : state.turn;
   els.teamA?.classList.toggle('active', activeTeam === 'A');
   els.teamB?.classList.toggle('active', activeTeam === 'B');
@@ -40,33 +39,27 @@ export function renderQuestion(state, round, lobbyMsg){
   }
 
   if (state.phase==='STEAL'){
-    els.question.innerHTML = `🕵️ Robo: <b>${state.names[state.stealTeam]}</b> tiene <b>1 intento</b>. Primero revela la respuesta, luego su puntaje.`;
+    els.question.innerHTML = `🕵️ Robo: <b>${state.names[state.stealTeam]}</b> tiene <b>1 intento</b>. Elige una respuesta correcta para llevarse el pozo.`;
   } else if (state.phase==='INTER' && state.pendingFinal && state.winner){
-    els.question.innerHTML = `🏁 ${state.names[state.winner]} ya superó ${state.winThreshold} puntos.<br><small>Revela todos los puntos y pulsa Enter</small>`;
+    els.question.innerHTML = `🏁 ${state.names[state.winner]} ya superó ${state.winThreshold} puntos.<br><small>Revela todas las respuestas y pulsa Enter</small>`;
   } else {
     els.question.textContent = round.pregunta;
   }
 
   els.answers.innerHTML = '';
   round.respuestas.forEach((r, i) => {
-    const txtRevealed = state.revealed.has(i);
-    const ptsRevealed = state.revealedPts.has(i);
+    const revealed = state.revealed.has(i);
     const card = document.createElement('div');
-
-    // estados visuales: .revealed-text y .revealed (para puntos)
-    card.className = 'card'
-      + (txtRevealed ? ' revealed-text' : '')
-      + (ptsRevealed ? ' revealed is-revealed show open' : '');
-
+    card.className = 'card' + (revealed ? ' revealed is-revealed show open' : '');
     card.dataset.idx = String(i);
 
-    const txt = txtRevealed ? r.texto : '— — —';
-    const pts = ptsRevealed ? String(r.puntos) : '';
+    const txt = revealed ? r.texto : '— — —';
+    const pts = revealed ? String(r.puntos) : '';
 
     card.innerHTML = `
       <div class="badge">#${i+1}</div>
-      <div class="text" style="${txtRevealed?'opacity:1;visibility:visible;':'opacity:.02;'}">${txt}</div>
-      <div class="pts"  style="${ptsRevealed?'opacity:1;visibility:visible;':'opacity:0;'}">${pts}</div>
+      <div class="text" style="${revealed?'opacity:1;visibility:visible;':'opacity:.02;'}">${txt}</div>
+      <div class="pts"  style="${revealed?'opacity:1;visibility:visible;':'opacity:0;'}">${pts}</div>
     `;
     els.answers.appendChild(card);
   });
