@@ -7,7 +7,6 @@ export const currentIndex = (state) =>
     ? state.roundOrder[state.roundCursor]
     : state.roundIndex;
 
-// ✅ “todo revelado” = todas las respuestas reveladas (texto+puntos en un paso)
 export const allRevealed = (state, q) => state.revealed.size >= q.respuestas.length;
 
 export function startGame(state, DATA, startTeam) {
@@ -26,7 +25,7 @@ export function startGame(state, DATA, startTeam) {
   state.originalTeam = startTeam;
 }
 
-/* ------------------ Revelado (un solo paso) ------------------ */
+/* Revelado (un solo paso) */
 export function reveal(state, round, idx, fromUI=false){
   const item = round?.respuestas[idx];
   if (!item) { if (state.phase === 'STEAL' && fromUI) failSteal(state); return; }
@@ -41,8 +40,8 @@ export function reveal(state, round, idx, fromUI=false){
     if (fromUI && wasHidden) {
       state.revealed.add(idx);
       state.pool += item.puntos * state.multiplier;
-      assignTo(state, state.stealTeam); // ✅ acierto en STEAL: se lo lleva quien roba
-    } else failSteal(state);             // ❌ fallo: se lo lleva el original
+      assignTo(state, state.stealTeam);
+    } else failSteal(state);
     return;
   }
 
@@ -53,7 +52,7 @@ export function reveal(state, round, idx, fromUI=false){
   if (allRevealed(state, round)) assignTo(state, state.turn);
 }
 
-/* ----------------------- Errores / STEAL --------------------- */
+/* Errores / STEAL */
 export function addError(state) {
   if (state.phase === 'STEAL') { assignTo(state, otherTeam(state.stealTeam)); return; }
   if (state.phase !== 'ROUND') return;
@@ -61,7 +60,7 @@ export function addError(state) {
   if (state.errors >= 3) {
     state.phase = 'STEAL';
     state.stealTeam = otherTeam(state.turn);
-    state.turn = state.stealTeam;  // turno visible/lógico pasa al que roba
+    state.turn = state.stealTeam;
   }
 }
 

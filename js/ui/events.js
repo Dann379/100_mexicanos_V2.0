@@ -3,8 +3,11 @@ import { toast, bigX, sfx } from './effects.js';
 
 let wired = false;
 
+/* ================== Eventos de juego ================== */
 export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setTurn, rerender){
-  if (wired) return; wired = true;
+  if (wired) return;
+  wired = true;
+
   const DATA = () => window.__DATA__ || [];
 
   function handleIndex(i){
@@ -15,6 +18,7 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
     rerender();
   }
 
+  /* --------- Teclado global (bloqueado si la bienvenida está visible) --------- */
   document.addEventListener('keydown', (e)=>{
     const key = e.key;
     const tgt = (e.target||{});
@@ -23,12 +27,12 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
 
     const welcomeVisible = !!(els.welcome && !els.welcome.classList.contains('hidden'));
     if (welcomeVisible) return;
+
     if (key!=='Enter' && typing) return;
 
     if (key === 'Enter') { guardedAdvance(); rerender(); return; }
     if (key === '/' || key === '?') { start(true); rerender(); return; }
 
-    // ← / → / ↓
     if (key === 'ArrowLeft')  { setTurn('A'); e.preventDefault(); return; }
     if (key === 'ArrowRight') { setTurn('B'); e.preventDefault(); return; }
     if (key === 'ArrowDown')  { sfx.board(); e.preventDefault(); return; }
@@ -53,6 +57,7 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
       }
       return;
     }
+
     if (k === 'd') {
       const round = DATA()[currentIndex(state)];
       console.log('[DEBUG] phase:', state.phase, 'cursor:', state.roundCursor, 'turn:', state.turn, 'stealTeam:', state.stealTeam);
@@ -65,21 +70,33 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
     if (['1','2','3','4','5','6'].includes(k)) { handleIndex(Number(k)-1); return; }
   });
 
-  els.answers.addEventListener('click', (e)=>{
-    const card = e.target.closest('.card');
-    if (!card) return;
-    handleIndex(Number(card.dataset.idx));
-  });
+  /* --------- Click / Touch en tarjetas (delegación) --------- */
+  const activateCard = (target)=>{
+    const card = target.closest?.('.card');
+    if (!card || !(card.dataset && 'idx' in card.dataset)) return;
+    const idx = Number(card.dataset.idx);
+    if (Number.isFinite(idx)) handleIndex(idx);
+  };
+  els.answers.addEventListener('click', (e)=> activateCard(e.target));
+  els.answers.addEventListener('touchend', (e)=>{
+    if (e.changedTouches && e.changedTouches.length) {
+      const el = document.elementFromPoint(
+        e.changedTouches[0].clientX, e.changedTouches[0].clientY
+      );
+      if (el) activateCard(el);
+    }
+  }, {passive:true});
 
+  /* --------- Botones auxiliares --------- */
   els.btnReset?.addEventListener('click', ()=> { start(true); rerender(); });
   els.teamA?.addEventListener('click', ()=> setTurn('A'));
   els.teamB?.addEventListener('click', ()=> setTurn('B'));
 }
 
+/* ================== Bienvenida (nombres + Enter) ================== */
 export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
   if (!els.welcome) return;
 
-  // 🔧 Asegura que el overlay esté visible y el foco vaya al input A
   els.welcome.classList.remove('hidden');
   setTimeout(()=> els.wNameA?.focus(), 0);
 
@@ -97,23 +114,18 @@ export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
     onSubmit({ a, b, start: 'A' });
     els.welcome.classList.add('hidden');
 
-    // Carga de preguntas (si aún no) + sonido de inicio
     await ensureDataReady?.();
-    try{ (await import('./effects.js')).sfx?.welcome?.(); }catch{}
+    sfx.welcome?.();
     start();
   };
 
-  // Botón
   els.wStartBtn?.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); submit(); });
-
-  // Enter en inputs (y no propagamos para que no interfiera nada global)
   [els.wNameA, els.wNameB].forEach(inp=>{
     inp?.addEventListener('keydown', (e)=>{
       if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); submit(); }
     });
   });
 
-  // Enter global mientras la bienvenida esté visible → intenta enviar si ambos campos tienen valor
   const onDocEnter = (e)=>{
     const visible = !!(els.welcome && !els.welcome.classList.contains('hidden'));
     if (!visible) return document.removeEventListener('keydown', onDocEnter);
@@ -125,4 +137,3 @@ export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
   };
   document.addEventListener('keydown', onDocEnter);
 }
-

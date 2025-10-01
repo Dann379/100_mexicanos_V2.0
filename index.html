@@ -2,116 +2,92 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>100 Mexicanos — MVP</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>100 Mexicanos</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-<div class="app">
-  <!-- Encabezado -->
-  <header>
-    <div class="brand">🎮 100 Mexicanos — MVP</div>
-    <div class="status">
-      <span class="pill">Ronda: <span id="roundLabel">—</span></span>
-      <span class="pill" id="multPill">Multiplicador: x<span id="multLabel">1</span></span>
-      <span class="pill">Fase: <span id="phaseLabel" class="phase">LOBBY</span></span>
-    </div>
-  </header>
+  <div class="app">
+    <header>
+      <div class="brand">100 Mexicanos</div>
+      <div class="status">
+        <span class="pill">Fase: <b id="phaseLabel">—</b></span>
+        <span class="pill">Ronda: <b id="roundLabel">—</b></span>
+        <span id="multPill" class="pill lvl1">x<b id="multLabel">1</b></span>
+        <span class="pill">Pozo: <b id="poolTop">0</b></span>
+      </div>
+    </header>
 
-  <!-- Marcador -->
-  <div class="scoreboard">
-    <div class="team" id="teamA">
-      <h2 id="labelA">Equipo 1</h2>
-      <div class="points" id="scoreA">0</div>
-    </div>
-    <div class="pot">
-      <label>Pozo</label>
-      <div class="value" id="poolTop">0</div>
-    </div>
-    <div class="team" id="teamB">
-      <h2 id="labelB">Equipo 2</h2>
-      <div class="points" id="scoreB">0</div>
-    </div>
-  </div>
+    <section class="scoreboard">
+      <div id="teamA" class="team">
+        <h2 id="labelA">Equipo 1</h2>
+        <div class="points" id="scoreA">0</div>
+      </div>
+      <div class="pot">
+        <label>Pozo</label>
+        <div class="value" id="pool">0</div>
+      </div>
+      <div id="teamB" class="team">
+        <h2 id="labelB">Equipo 2</h2>
+        <div class="points" id="scoreB">0</div>
+      </div>
+    </section>
 
-  <!-- Zona principal -->
-  <div class="main">
-    <section class="board">
+    <main class="board">
+      <div class="question" id="question">—</div>
+      <div class="answers" id="answers"></div>
+      <div class="footer">
+        <span class="ok">Atajos:</span>
+        <span class="kbd">Enter</span> Avanzar •
+        <span class="kbd">1–6</span> Revelar •
+        <span class="kbd">X</span> Error •
+        <span class="kbd">←/→</span> Turno •
+        <span class="kbd">↓</span> Sonido tablero •
+        <span class="kbd">/</span> Reiniciar •
+        <span class="kbd">V</span> Validar •
+        <span class="kbd">L</span> Recargar
+      </div>
+
       <div class="overlayX" id="overlayX">
         <div class="bigX" id="overlayXText">✖</div>
       </div>
       <div class="toast" id="toast"></div>
-      <div class="question" id="question">
-        Ingresa los nombres de los equipos para iniciar
+    </main>
+
+    <section class="help">
+      <div class="config-left">
+        <button id="btnPresenter" class="btn">🎤 Presentador</button>
+        <button id="btnFullscreen" class="btn">⛶ Pantalla</button>
+        <button id="btnTheme" class="btn">🌙 Tema</button>
       </div>
-      <div class="answers" id="answers"></div>
-      <div class="footer">Pozo de la ronda: <span class="ok" id="pool">0</span> puntos</div>
+      <div class="config">
+        <label class="pill"><input id="chkRandom" type="checkbox" /> Aleatorio</label>
+        <label class="pill">Meta&nbsp;<input id="inpThreshold" type="number" min="1" value="500" style="width:80px" /></label>
+        <button id="btnValidate" class="btn">Validar</button>
+        <button id="btnExport" class="btn">Exportar</button>
+        <button id="btnReset" class="btn warn">Reset</button>
+        <span id="errorBox" class="error-msg"></span>
+      </div>
     </section>
   </div>
 
-  <!-- Ayuda -->
- <!-- ...encabezado y tablero iguales... -->
-
-  <!-- Ayuda -->
-  <div class="help">
-    <div>
-      <span class="kbd">Enter</span> Avanzar / Revelar • 
-      <span class="kbd">X</span> Error • 
-      <span class="kbd">/</span> Reiniciar • 
-      <span class="kbd">R</span> Rebarajar
-    </div>
-    <div>
-      <span class="kbd">1–6</span> Revelar • 
-      <span class="kbd">L</span> Recargar preguntas • 
-      <span class="kbd">←</span>/<span class="kbd">→</span> Cambiar turno •
-      <span class="kbd">↓</span> Sonido “en tablero” •
-      <span class="kbd">V</span> Validar preguntas
+  <!-- Bienvenida -->
+  <div class="welcome hidden" id="welcome">
+    <div class="welcome-card">
+      <h1>¡Bienvenido!</h1>
+      <p class="subtitle">Ingresa los nombres de los equipos para comenzar.</p>
+      <div class="welcome-row">
+        <input id="wNameA" type="text" placeholder="Equipo A" autocomplete="off" />
+      </div>
+      <div class="welcome-row">
+        <input id="wNameB" type="text" placeholder="Equipo B" autocomplete="off" />
+      </div>
+      <div class="welcome-actions">
+        <button id="wStartBtn" class="btn">Empezar</button>
+      </div>
     </div>
   </div>
 
-<!-- ...resto del HTML igual... -->
-
-
-  <!-- Configuración -->
-  <div class="config">
-    <label style="display:flex;align-items:center;gap:8px">
-      <input id="chkRandom" type="checkbox" /> Aleatorio
-    </label>
-    <input id="inpThreshold" type="number" min="1" value="500" title="Umbral de victoria" />
-    <button id="btnValidate" class="btn">✔ Validar</button>
-    <button id="btnExport" class="btn">⬇ Exportar</button>
-    <button id="btnPresenter" class="btn">🎤 Presentador</button>
-<button id="btnFullscreen" class="btn">⛶ Pantalla</button>
-<button id="btnTheme" class="btn">🌙 Tema</button>
-
-    <button id="btnReset" class="btn warn">⟲ Reiniciar</button>
-    <div id="errorBox" class="error-msg"></div>
-  </div>
-</div>
-
-<!-- Bienvenida -->
-<div class="welcome" id="welcome">
-  <div class="welcome-card">
-    <h1>🎮 100 Mexicanos</h1>
-    <p class="subtitle">Ingresa los nombres de los equipos para comenzar</p>
-
-    <div class="welcome-row">
-      <label>Equipo A</label>
-      <input id="wNameA" placeholder="Nombre del Equipo A" maxlength="32" />
-    </div>
-
-    <div class="welcome-row">
-      <label>Equipo B</label>
-      <input id="wNameB" placeholder="Nombre del Equipo B" maxlength="32" />
-    </div>
-
-    <div class="welcome-actions">
-      <button id="wStartBtn" class="btn">Comenzar</button>
-    </div>
-  </div>
-</div>
-
-<!-- Script principal -->
-<script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>

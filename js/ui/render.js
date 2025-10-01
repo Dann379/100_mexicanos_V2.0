@@ -46,11 +46,16 @@ export function renderQuestion(state, round, lobbyMsg){
     els.question.textContent = round.pregunta;
   }
 
+  // Configura cuántas filas iguales debe tener el grid de respuestas
+  const rows = Array.isArray(round.respuestas) ? round.respuestas.length : 0;
+  els.answers.style.setProperty('--rows', String(rows || 6));
+
+  // Render de tarjetas
   els.answers.innerHTML = '';
   round.respuestas.forEach((r, i) => {
     const revealed = state.revealed.has(i);
     const card = document.createElement('div');
-    card.className = 'card' + (revealed ? ' revealed is-revealed show open' : '');
+    card.className = 'card' + (revealed ? ' revealed' : '');
     card.dataset.idx = String(i);
 
     const txt = revealed ? r.texto : '— — —';
@@ -58,8 +63,11 @@ export function renderQuestion(state, round, lobbyMsg){
 
     card.innerHTML = `
       <div class="badge">#${i+1}</div>
-      <div class="text" style="${revealed?'opacity:1;visibility:visible;':'opacity:.02;'}">${txt}</div>
-      <div class="pts"  style="${revealed?'opacity:1;visibility:visible;':'opacity:0;'}">${pts}</div>
+      <div class="row">
+        <div class="text" style="${revealed?'opacity:1;visibility:visible;':'opacity:.02;'}">${txt}</div>
+        <div class="dots" aria-hidden="true"></div>
+        <div class="pts"  style="${revealed?'opacity:1;visibility:visible;':'opacity:0;'}">${pts}</div>
+      </div>
     `;
     els.answers.appendChild(card);
   });

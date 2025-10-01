@@ -1,35 +1,40 @@
-export const $ = (s) => document.querySelector(s);
 export const els = {
-  answers: $('#answers'),
-  question: $('#question'),
-  roundLabel: $('#roundLabel'),
-  multLabel: $('#multLabel'),
-  multPill:  $('#multPill'),
-  phaseLabel: $('#phaseLabel'),
-  poolTop:   $('#poolTop'),
-  pool:      $('#pool'),
-  scoreA:    $('#scoreA'),
-  scoreB:    $('#scoreB'),
-  labelA:    $('#labelA'),
-  labelB:    $('#labelB'),
-  teamA:     $('#teamA'),
-  teamB:     $('#teamB'),
+  phaseLabel: document.getElementById('phaseLabel'),
+  roundLabel: document.getElementById('roundLabel'),
+  multLabel:  document.getElementById('multLabel'),
+  multPill:   document.getElementById('multPill'),
+  pool:       document.getElementById('pool'),
+  poolTop:    document.getElementById('poolTop'),
 
-  // Barra de config vigente
-  chkRandom: $('#chkRandom'),
-  inpThreshold: $('#inpThreshold'),
-  errorBox:  $('#errorBox'),
-  btnReset:  $('#btnReset'),
+  teamA:   document.getElementById('teamA'),
+  teamB:   document.getElementById('teamB'),
+  labelA:  document.getElementById('labelA'),
+  labelB:  document.getElementById('labelB'),
+  scoreA:  document.getElementById('scoreA'),
+  scoreB:  document.getElementById('scoreB'),
 
-  // Bienvenida real en el HTML
-  welcome:  $('#welcome'),
-  wNameA:   $('#wNameA'),
-  wNameB:   $('#wNameB'),
-  // No existe selector de "equipo que inicia" en la bienvenida; arrancamos con 'A' por defecto
-  wStartBtn:$('#wStartBtn'),
+  question: document.getElementById('question'),
+  answers:  document.getElementById('answers'),
 
-  // Overlays y toast
-  toast:     $('#toast'),
-  overlayX:  $('#overlayX'),
-  overlayXText: $('#overlayXText'),
+  btnValidate: document.getElementById('btnValidate'),
+  btnExport:   document.getElementById('btnExport'),
+  btnReset:    document.getElementById('btnReset'),
+
+  chkRandom:   document.getElementById('chkRandom'),
+  inpThreshold:document.getElementById('inpThreshold'),
+
+  btnPresenter:  document.getElementById('btnPresenter'),
+  btnFullscreen: document.getElementById('btnFullscreen'),
+  btnTheme:      document.getElementById('btnTheme'),
+
+  overlayX:    document.getElementById('overlayX'),
+  overlayXText:document.getElementById('overlayXText'),
+  toast:       document.getElementById('toast'),
+  errorBox:    document.getElementById('errorBox'),
+
+  // Welcome
+  welcome:   document.getElementById('welcome'),
+  wNameA:    document.getElementById('wNameA'),
+  wNameB:    document.getElementById('wNameB'),
+  wStartBtn: document.getElementById('wStartBtn'),
 };
