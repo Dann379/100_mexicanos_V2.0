@@ -66,13 +66,24 @@ export function addError(state) {
 
 export function assignTo(state, team) {
   if (!['ROUND','STEAL'].includes(state.phase)) return;
+
   const awarded = state.pool;
   if (team === 'A') state.scoreA += awarded; else state.scoreB += awarded;
   state.pool = 0;
-  state.phase = 'INTER';
+
+  // Verifica victoria inmediata al alcanzar/superar la meta
   const teamScore = team === 'A' ? state.scoreA : state.scoreB;
-  if (teamScore > state.winThreshold) { state.winner = team; state.pendingFinal = true; }
+  if (teamScore >= state.winThreshold) {
+    state.winner = team;
+    state.pendingFinal = false;   // ya no usamos pendiente
+    state.phase = 'FINAL';        // 👈 termina de inmediato
+    return;
+  }
+
+  // Si no ganó aún, se va a la fase intermedia normal
+  state.phase = 'INTER';
 }
+
 
 export function failSteal(state){ assignTo(state, otherTeam(state.stealTeam)); }
 
