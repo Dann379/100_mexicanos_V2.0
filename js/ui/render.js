@@ -25,6 +25,7 @@ export function renderHeader(state){
 }
 
 export function renderQuestion(state, round, lobbyMsg){
+  // FINAL
   if (state.phase==='FINAL'){
     const winner = state.winner || (state.scoreA >= state.scoreB ? 'A':'B');
     const pts = winner==='A' ? state.scoreA : state.scoreB;
@@ -32,12 +33,29 @@ export function renderQuestion(state, round, lobbyMsg){
     els.answers.innerHTML = '';
     return;
   }
+
+  // LOBBY (sin datos aún)
   if (!round){
     els.question.innerHTML = lobbyMsg;
     els.answers.innerHTML = '';
     return;
   }
 
+  // READY (fase nueva): no mostramos la pregunta todavía
+ if (state.phase === 'READY'){
+  const num = (state.roundCursor>=0 ? state.roundCursor+1 : 1);
+  const who = state.names[state.turn] || (state.turn==='A'?'Equipo 1':'Equipo 2');
+  els.question.innerHTML = `
+    <div class="ready-msg">
+      ⏱️ <b>Ronda ${num}</b><br>
+      ¿ Listos ?</b><br>
+      <small>Pulsa <span class="kbd">Enter</span> para mostrar la pregunta</small>
+    </div>`;
+  els.answers.innerHTML = '';
+  return;
+}
+
+  // Mensajes especiales
   if (state.phase==='STEAL'){
     els.question.innerHTML = `🕵️ Robo: <b>${state.names[state.stealTeam]}</b> tiene <b>1 intento</b>. Elige una respuesta correcta para llevarse el pozo.`;
   } else if (state.phase==='INTER' && state.pendingFinal && state.winner){
@@ -46,11 +64,11 @@ export function renderQuestion(state, round, lobbyMsg){
     els.question.textContent = round.pregunta;
   }
 
-  // Configura cuántas filas iguales debe tener el grid de respuestas
+  // Configurar filas para que rellenen el alto del board
   const rows = Array.isArray(round.respuestas) ? round.respuestas.length : 0;
   els.answers.style.setProperty('--rows', String(rows || 6));
 
-  // Render de tarjetas
+  // Render tarjetas
   els.answers.innerHTML = '';
   round.respuestas.forEach((r, i) => {
     const revealed = state.revealed.has(i);

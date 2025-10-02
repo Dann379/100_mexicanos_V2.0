@@ -277,3 +277,22 @@ body.presenter .pot .value{ font-size:42px }
   .question{ font-size:20px }
   .card .text, .card .pts{ font-size:20px }
 }
+
+.ready-msg{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  height: 100%;          /* ocupa todo el espacio del board */
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--fg);
+}
+
+.ready-msg small{
+  color: var(--muted);
+  margin-top: 8px;
+  font-size: 16px;
+}

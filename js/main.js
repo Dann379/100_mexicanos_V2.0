@@ -5,6 +5,16 @@ import { renderHeader, renderQuestion } from './ui/render.js';
 import { toast, sfx } from './ui/effects.js';
 import { wireWelcome, wireEvents } from './ui/events.js';
 
+sfx.load({
+  welcome: '/audio/welcome.wav',
+  reveal : '/audio/reveal.wav',
+  error  : '/audio/error.wav',
+  board  : '/audio/board.wav',
+  ready  : '/audio/ready.wav',
+  final  : '/audio/final.wav'
+});
+
+
 /* ===================== Preferencias (localStorage) ===================== */
 const LS = { RANDOM:'randomMode', THRESH:'winThreshold' };
 const loadPrefRandom   = () => localStorage.getItem(LS.RANDOM)!=='0';
@@ -60,6 +70,24 @@ function render(){
   const round = DATA()[currentIndex(state)];
   const lobbyMsg = 'Ingresa los nombres de los equipos y pulsa <b>Comenzar</b>';
   renderQuestion(state, round, lobbyMsg);
+
+  let __lastPhase = 'LOBBY';
+
+function render(){
+  document.body?.setAttribute('data-phase', state.phase);
+
+  // 🔔 Detectar cambios de fase y disparar sonidos
+  if (__lastPhase !== state.phase){
+    if (state.phase === 'READY') sfx.ready();   // cada vez que entramos a READY
+    if (state.phase === 'FINAL') sfx.final();   // cuando llegamos a FINAL
+    __lastPhase = state.phase;
+  }
+
+  renderHeader(state);
+  const round = DATA()[currentIndex(state)];
+  const lobbyMsg = 'Ingresa los nombres de los equipos y pulsa <b>Comenzar</b>';
+  renderQuestion(state, round, lobbyMsg);
+}
 }
 
 /* ===================== Enter inteligente ===================== */
@@ -75,19 +103,35 @@ function revealNext(){
   }
   return false;
 }
+
+/* === Avance con guardas (incluye READY) === */
 function guardedAdvance(){
   if (state.phase==='LOBBY') { start(); render(); return; }
-  if (state.phase==='ROUND'){
-    revealNext();
+
+  // READY -> ROUND (mostrar por fin la pregunta)
+  if (state.phase==='READY'){
+    state.phase = 'ROUND';
     render();
     return;
   }
+
+  if (state.phase==='ROUND'){
+    revealNext(); // revela la siguiente; si era la última, assignTo -> INTER/FINAL
+    render();
+    return;
+  }
+
   if (state.phase==='INTER'){
     const round = DATA()[currentIndex(state)];
     if (!allRevealed(state, round)) { toast(els.toast,'Revela todas las respuestas antes de continuar'); return; }
     if (state.pendingFinal && state.winner) { state.phase='FINAL'; render(); return; }
-    nextRound(state, DATA(), state.originalTeam); render(); return;
+
+    // En lugar de pasar directo a ROUND, preparamos la siguiente y vamos a READY
+    nextRound(state, DATA(), state.originalTeam);
+    render();
+    return;
   }
+
   if (state.phase==='FINAL'){ toast(els.toast,'Juego terminado. Pulsa / para reiniciar'); return; }
 }
 
@@ -103,8 +147,10 @@ function start(isReset=false){
   const nA = (state.names?.A||'').trim();
   const nB = (state.names?.B||'').trim();
   if (!nA || !nB) { els.errorBox && (els.errorBox.textContent='Debes ingresar ambos nombres de equipo'); return; }
-  try { startGame(state, DATA(), 'A'); }
+
+  try { startGame(state, DATA(), 'A'); } // 👈 deja fase en READY
   catch { els.errorBox && (els.errorBox.textContent='No hay preguntas cargadas'); return; }
+
   render();
 }
 
@@ -240,7 +286,7 @@ if (els.welcome) {
       state.names.A = a;
       state.names.B = b;
     }, 
-    async ()=>{ await ensureDataReady(); start(); },
+    async ()=>{ await ensureDataReady(); start(); },   // start -> READY
     ensureDataReady
   );
 }
