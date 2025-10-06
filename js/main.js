@@ -5,16 +5,6 @@ import { renderHeader, renderQuestion } from './ui/render.js';
 import { toast, sfx } from './ui/effects.js';
 import { wireWelcome, wireEvents } from './ui/events.js';
 
-sfx.load({
-  welcome: '/audio/welcome.wav',
-  reveal : '/audio/reveal.wav',
-  error  : '/audio/error.wav',
-  board  : '/audio/board.wav',
-  ready  : '/audio/ready.wav',
-  final  : '/audio/final.wav'
-});
-
-
 /* ===================== Preferencias (localStorage) ===================== */
 const LS = { RANDOM:'randomMode', THRESH:'winThreshold' };
 const loadPrefRandom   = () => localStorage.getItem(LS.RANDOM)!=='0';
@@ -30,7 +20,31 @@ function resetStateInPlace(prefs){
   for (const [k,v] of Object.entries(fresh)) state[k] = v;
 }
 
-/* ===================== Datos ===================== */
+/* ===================== Audio: priming + carga de pistas ===================== */
+// Desbloqueo del AudioContext en el primer gesto del usuario
+let __audioPrimed = false;
+function primeAudioOnce(){
+  if (__audioPrimed) return;
+  __audioPrimed = true;
+  sfx.unlock();
+}
+window.addEventListener('pointerdown', primeAudioOnce, { once:true, passive:true });
+window.addEventListener('keydown',      primeAudioOnce, { once:true });
+
+// Carga tus pistas personalizadas (ajusta rutas/nombres si hace falta)
+sfx.load({
+  welcome: '/audio/welcome.wav',
+  reveal : '/audio/reveal.wav',
+  error  : '/audio/error.wav',
+  board  : '/audio/board.wav',
+  ready  : '/audio/ready.wav',
+  final  : '/audio/final.mp3'
+});
+// Asegura que no esté muteado y con volumen audible por defecto
+if (sfx.audio.muted) sfx.audio.muted = false;
+if (!sfx.audio.volume || sfx.audio.volume <= 0) sfx.audio.volume = 0.9;
+
+/* ===================== Datos (preguntas) ===================== */
 let dataReadyResolve;
 const dataReady = new Promise(res => (dataReadyResolve = res));
 const ensureDataReady = () => dataReady;
@@ -63,23 +77,23 @@ async function loadData(){
 }
 window.loadData = loadData;
 
-/* ===================== Render ===================== */
-function render(){
-  document.body?.setAttribute('data-phase', state.phase);
-  renderHeader(state);
-  const round = DATA()[currentIndex(state)];
-  const lobbyMsg = 'Ingresa los nombres de los equipos y pulsa <b>Comenzar</b>';
-  renderQuestion(state, round, lobbyMsg);
-
-  let __lastPhase = 'LOBBY';
+/* ===================== Render (+ sonidos por cambio de fase) ===================== */
+let __lastPhase = 'LOBBY';
+let __readyTimer = null;
 
 function render(){
   document.body?.setAttribute('data-phase', state.phase);
 
-  // 🔔 Detectar cambios de fase y disparar sonidos
+  // Sonidos por transición de fase
   if (__lastPhase !== state.phase){
-    if (state.phase === 'READY') sfx.ready();   // cada vez que entramos a READY
-    if (state.phase === 'FINAL') sfx.final();   // cuando llegamos a FINAL
+    if (state.phase === 'READY') {
+      if (__readyTimer) { clearTimeout(__readyTimer); __readyTimer = null; }
+      // READY debe sonar al entrar (welcome ya sonó en SPLASH dentro de events.js)
+      __readyTimer = setTimeout(()=> sfx.ready(), 0);
+    }
+    if (state.phase === 'FINAL') {
+      sfx.final();
+    }
     __lastPhase = state.phase;
   }
 
@@ -87,7 +101,6 @@ function render(){
   const round = DATA()[currentIndex(state)];
   const lobbyMsg = 'Ingresa los nombres de los equipos y pulsa <b>Comenzar</b>';
   renderQuestion(state, round, lobbyMsg);
-}
 }
 
 /* ===================== Enter inteligente ===================== */
@@ -108,7 +121,7 @@ function revealNext(){
 function guardedAdvance(){
   if (state.phase==='LOBBY') { start(); render(); return; }
 
-  // READY -> ROUND (mostrar por fin la pregunta)
+  // READY -> ROUND (mostrar la pregunta cuando decida el presentador)
   if (state.phase==='READY'){
     state.phase = 'ROUND';
     render();
@@ -124,9 +137,9 @@ function guardedAdvance(){
   if (state.phase==='INTER'){
     const round = DATA()[currentIndex(state)];
     if (!allRevealed(state, round)) { toast(els.toast,'Revela todas las respuestas antes de continuar'); return; }
+    // Si hubo victoria inmediata, FINAL ya está seteado por assignTo; si no:
     if (state.pendingFinal && state.winner) { state.phase='FINAL'; render(); return; }
-
-    // En lugar de pasar directo a ROUND, preparamos la siguiente y vamos a READY
+    // Prepara siguiente ronda y queda en READY (no muestra la pregunta)
     nextRound(state, DATA(), state.originalTeam);
     render();
     return;
@@ -140,7 +153,8 @@ function start(isReset=false){
   if (isReset){
     const prefs = { randomOn: state.randomOn, winThreshold: state.winThreshold };
     resetStateInPlace(prefs);
-    els.welcome?.classList.remove('hidden');
+    // mostramos splash desde events.js al volver a wireWelcome
+    els.welcome?.classList.add('hidden');
     render();
     return;
   }
@@ -148,7 +162,7 @@ function start(isReset=false){
   const nB = (state.names?.B||'').trim();
   if (!nA || !nB) { els.errorBox && (els.errorBox.textContent='Debes ingresar ambos nombres de equipo'); return; }
 
-  try { startGame(state, DATA(), 'A'); } // 👈 deja fase en READY
+  try { startGame(state, DATA(), 'A'); } // deja fase en READY
   catch { els.errorBox && (els.errorBox.textContent='No hay preguntas cargadas'); return; }
 
   render();
@@ -273,19 +287,18 @@ import { wireEvents as __wire } from './ui/events.js';
 __wire(state, null, els, start, guardedAdvance, setTurn, render);
 
 /* ===================== Init ===================== */
-loadData(); 
+loadData();
 render();
 
-/* ===================== Bienvenida ===================== */
-if (els.welcome) {
-  els.welcome.classList.remove('hidden');
+/* ===================== Splash + Nombres (wireWelcome) ===================== */
+if (els.splash || els.welcome) {
   wireWelcome(
-    state, 
-    els, 
+    state,
+    els,
     ({a,b})=>{
       state.names.A = a;
       state.names.B = b;
-    }, 
+    },
     async ()=>{ await ensureDataReady(); start(); },   // start -> READY
     ensureDataReady
   );

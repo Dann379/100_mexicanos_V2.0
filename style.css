@@ -296,3 +296,38 @@ body.presenter .pot .value{ font-size:42px }
   margin-top: 8px;
   font-size: 16px;
 }
+
+/* ===== SPLASH ===== */
+.splash{
+  position: fixed; inset: 0; z-index: 15;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(900px 600px at 50% 30%, rgba(40,224,163,.18), transparent 60%),
+    linear-gradient(120deg, rgba(0,0,0,.65), rgba(0,0,0,.35)),
+    var(--bg);
+  backdrop-filter: blur(4px);
+}
+.splash.hidden{ display:none; }
+
+.splash-card{
+  text-align: center;
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+  padding: 28px 28px 22px;
+  max-width: 720px;
+}
+.splash-title{
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, var(--acc), var(--acc-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin: 0 0 8px;
+}
+.splash-sub{
+  color: var(--muted);
+  font-size: clamp(16px, 2.2vw, 18px);
+}

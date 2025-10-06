@@ -18,21 +18,23 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
     rerender();
   }
 
-  /* --------- Teclado global (bloqueado si la bienvenida está visible) --------- */
+  /* --------- Teclado global (bloqueado si splash o welcome están visibles) --------- */
   document.addEventListener('keydown', (e)=>{
     const key = e.key;
     const tgt = (e.target||{});
     const tag = (tgt.tagName||'').toLowerCase();
     const typing = ['input','textarea','select'].includes(tag) || tgt.isContentEditable;
 
+    const splashVisible  = !!(els.splash  && !els.splash.classList.contains('hidden'));
     const welcomeVisible = !!(els.welcome && !els.welcome.classList.contains('hidden'));
-    if (welcomeVisible) return;
+    if (splashVisible || welcomeVisible) return;  // 👈 no consumir teclas del juego
 
     if (key!=='Enter' && typing) return;
 
     if (key === 'Enter') { guardedAdvance(); rerender(); return; }
     if (key === '/' || key === '?') { start(true); rerender(); return; }
 
+    // Flechas y ↓
     if (key === 'ArrowLeft')  { setTurn('A'); e.preventDefault(); return; }
     if (key === 'ArrowRight') { setTurn('B'); e.preventDefault(); return; }
     if (key === 'ArrowDown')  { sfx.board(); e.preventDefault(); return; }
@@ -93,12 +95,40 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
   els.teamB?.addEventListener('click', ()=> setTurn('B'));
 }
 
-/* ================== Bienvenida (nombres + Enter) ================== */
+/* ================== SPLASH + Bienvenida (nombres + Enter) ================== */
 export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
-  if (!els.welcome) return;
+  // 1) Mostrar SPLASH primero
+  if (els.splash){
+    els.splash.classList.remove('hidden');
+    els.welcome?.classList.add('hidden');
+    // para permitir foco y keydown accesible
+    try{ els.splash.focus(); }catch{}
+  }
 
-  els.welcome.classList.remove('hidden');
-  setTimeout(()=> els.wNameA?.focus(), 0);
+  const goFromSplashToWelcome = ()=>{
+    // 🔊 SONIDO WELCOME AQUÍ (primer gesto: Enter)
+    sfx.welcome?.();
+    // ocultar splash y mostrar nombres
+    els.splash?.classList.add('hidden');
+    els.welcome?.classList.remove('hidden');
+    setTimeout(()=> els.wNameA?.focus(), 0);
+  };
+
+  // Enter en SPLASH
+  const onSplashKey = (e)=>{
+    if (!els.splash || els.splash.classList.contains('hidden')) {
+      document.removeEventListener('keydown', onSplashKey);
+      return;
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      goFromSplashToWelcome();
+    }
+  };
+  document.addEventListener('keydown', onSplashKey);
+
+  // 2) Pantalla de nombres (WELCOME)
+  if (!els.welcome) return;
 
   const submit = async () => {
     const a = (els.wNameA?.value || '').trim();
@@ -115,25 +145,28 @@ export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
     els.welcome.classList.add('hidden');
 
     await ensureDataReady?.();
-    sfx.welcome?.();
-    start();
+    start();   // -> fase READY (el sonido READY lo maneja render/main)
   };
 
+  // Click en botón
   els.wStartBtn?.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); submit(); });
+
+  // Enter en inputs
   [els.wNameA, els.wNameB].forEach(inp=>{
     inp?.addEventListener('keydown', (e)=>{
       if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); submit(); }
     });
   });
 
-  const onDocEnter = (e)=>{
+  // Fallback: Enter en todo el overlay de nombres si ambos campos están llenos
+  const onWelcomeEnter = (e)=>{
     const visible = !!(els.welcome && !els.welcome.classList.contains('hidden'));
-    if (!visible) return document.removeEventListener('keydown', onDocEnter);
+    if (!visible) return document.removeEventListener('keydown', onWelcomeEnter);
     if (e.key === 'Enter') {
       const a = (els.wNameA?.value || '').trim();
       const b = (els.wNameB?.value || '').trim();
       if (a && b) { e.preventDefault(); submit(); }
     }
   };
-  document.addEventListener('keydown', onDocEnter);
+  document.addEventListener('keydown', onWelcomeEnter);
 }

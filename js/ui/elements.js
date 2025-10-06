@@ -33,6 +33,7 @@ export const els = {
   errorBox:    document.getElementById('errorBox'),
 
   // Welcome
+  splash:     document.getElementById('splash'),  
   welcome:   document.getElementById('welcome'),
   wNameA:    document.getElementById('wNameA'),
   wNameB:    document.getElementById('wNameB'),
