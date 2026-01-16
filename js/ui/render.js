@@ -26,13 +26,27 @@ export function renderHeader(state){
 
 export function renderQuestion(state, round, lobbyMsg){
   // FINAL
-  if (state.phase==='FINAL'){
-    const winner = state.winner || (state.scoreA >= state.scoreB ? 'A':'B');
-    const pts = winner==='A' ? state.scoreA : state.scoreB;
-    els.question.innerHTML = `🏆 ¡${state.names[winner]} gana con <b>${pts}</b> puntos!<br><small>Pulsa / para reiniciar</small>`;
-    els.answers.innerHTML = '';
-    return;
+ // FINAL
+if (state.phase==='FINAL'){
+  const winner = state.winner || (state.scoreA >= state.scoreB ? 'A':'B');
+  const pts = winner==='A' ? state.scoreA : state.scoreB;
+  const name = state.names[winner] || `Equipo ${winner}`;
+
+  // Mostrar overlay final
+  const overlay = document.getElementById('finalOverlay');
+  const wEl = document.getElementById('finalWinner');
+  const sEl = document.getElementById('finalScore');
+  if (overlay && wEl && sEl) {
+    wEl.textContent = `🏆 ¡${name} gana!`;
+    sEl.textContent = `${pts} puntos`;
+    overlay.classList.remove('hidden');
+    startConfetti();
   }
+
+  els.question.innerHTML = '';
+  els.answers.innerHTML = '';
+  return;
+}
 
   // LOBBY (sin datos aún)
   if (!round){

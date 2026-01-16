@@ -18,7 +18,7 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
     rerender();
   }
 
-  /* --------- Teclado global (bloqueado si splash o welcome están visibles) --------- */
+  /* --------- Teclado global --------- */
   document.addEventListener('keydown', (e)=>{
     const key = e.key;
     const tgt = (e.target||{});
@@ -27,12 +27,23 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
 
     const splashVisible  = !!(els.splash  && !els.splash.classList.contains('hidden'));
     const welcomeVisible = !!(els.welcome && !els.welcome.classList.contains('hidden'));
-    if (splashVisible || welcomeVisible) return;  // 👈 no consumir teclas del juego
+
+    // --- Reinicio global con "/" o "?" (siempre disponible) ---
+    if (key === '/' || key === '?') {
+      e.preventDefault();
+      els.splash?.classList.remove('hidden'); // vuelve a mostrar el splash
+      els.welcome?.classList.add('hidden');
+      start(true); // reset de estado
+      rerender();
+      return;
+    }
+
+    // Si hay overlay (splash/welcome), no procesar hotkeys del juego
+    if (splashVisible || welcomeVisible) return;
 
     if (key!=='Enter' && typing) return;
 
     if (key === 'Enter') { guardedAdvance(); rerender(); return; }
-    if (key === '/' || key === '?') { start(true); rerender(); return; }
 
     // Flechas y ↓
     if (key === 'ArrowLeft')  { setTurn('A'); e.preventDefault(); return; }
@@ -69,16 +80,26 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
       return;
     }
 
-    if (['1','2','3','4','5','6'].includes(k)) { handleIndex(Number(k)-1); return; }
+    if (['1','2','3','4','5','6'].includes(k)) {
+  if (!['ROUND','STEAL','INTER'].includes(state.phase)) return; // ← añade 'INTER'
+  handleIndex(Number(k)-1);
+  return;
+}
+
+
   });
 
   /* --------- Click / Touch en tarjetas (delegación) --------- */
-  const activateCard = (target)=>{
-    const card = target.closest?.('.card');
-    if (!card || !(card.dataset && 'idx' in card.dataset)) return;
-    const idx = Number(card.dataset.idx);
-    if (Number.isFinite(idx)) handleIndex(idx);
-  };
+ const activateCard = (target)=>{
+  if (!['ROUND','STEAL','INTER'].includes(state.phase)) return; // ← añade 'INTER'
+  const card = target.closest?.('.card');
+  if (!card || !(card.dataset && 'idx' in card.dataset)) return;
+  const idx = Number(card.dataset.idx);
+  if (Number.isFinite(idx)) handleIndex(idx);
+};
+
+
+
   els.answers.addEventListener('click', (e)=> activateCard(e.target));
   els.answers.addEventListener('touchend', (e)=>{
     if (e.changedTouches && e.changedTouches.length) {
@@ -96,36 +117,38 @@ export function wireEvents(state, _DATA_UNUSED, els, start, guardedAdvance, setT
 }
 
 /* ================== SPLASH + Bienvenida (nombres + Enter) ================== */
+let splashKeyBound = false;
+let welcomeKeyBound = false;
+
 export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
   // 1) Mostrar SPLASH primero
   if (els.splash){
     els.splash.classList.remove('hidden');
     els.welcome?.classList.add('hidden');
-    // para permitir foco y keydown accesible
     try{ els.splash.focus(); }catch{}
   }
 
-  const goFromSplashToWelcome = ()=>{
-    // 🔊 SONIDO WELCOME AQUÍ (primer gesto: Enter)
-    sfx.welcome?.();
-    // ocultar splash y mostrar nombres
+  const goFromSplashToWelcome = async ()=>{
+    try { await sfx.unlock(); } catch {}
+    sfx.welcome?.(); // 🔊 sonar aquí (primer gesto: Enter en splash)
     els.splash?.classList.add('hidden');
     els.welcome?.classList.remove('hidden');
     setTimeout(()=> els.wNameA?.focus(), 0);
   };
 
-  // Enter en SPLASH
-  const onSplashKey = (e)=>{
-    if (!els.splash || els.splash.classList.contains('hidden')) {
-      document.removeEventListener('keydown', onSplashKey);
-      return;
-    }
+  // Enter en SPLASH (una única vez)
+  const handleSplashKeyDown = (e)=>{
+    const visible = !!(els.splash && !els.splash.classList.contains('hidden'));
+    if (!visible) { document.removeEventListener('keydown', handleSplashKeyDown); splashKeyBound=false; return; }
     if (e.key === 'Enter') {
       e.preventDefault();
       goFromSplashToWelcome();
     }
   };
-  document.addEventListener('keydown', onSplashKey);
+  if (!splashKeyBound){
+    document.addEventListener('keydown', handleSplashKeyDown);
+    splashKeyBound = true;
+  }
 
   // 2) Pantalla de nombres (WELCOME)
   if (!els.welcome) return;
@@ -158,15 +181,18 @@ export function wireWelcome(state, els, onSubmit, start, ensureDataReady){
     });
   });
 
-  // Fallback: Enter en todo el overlay de nombres si ambos campos están llenos
-  const onWelcomeEnter = (e)=>{
+  // Fallback: Enter global si ambos campos están llenos
+  const handleWelcomeKeyDown = (e)=>{
     const visible = !!(els.welcome && !els.welcome.classList.contains('hidden'));
-    if (!visible) return document.removeEventListener('keydown', onWelcomeEnter);
+    if (!visible) { document.removeEventListener('keydown', handleWelcomeKeyDown); welcomeKeyBound=false; return; }
     if (e.key === 'Enter') {
       const a = (els.wNameA?.value || '').trim();
       const b = (els.wNameB?.value || '').trim();
       if (a && b) { e.preventDefault(); submit(); }
     }
   };
-  document.addEventListener('keydown', onWelcomeEnter);
+  if (!welcomeKeyBound){
+    document.addEventListener('keydown', handleWelcomeKeyDown);
+    welcomeKeyBound = true;
+  }
 }

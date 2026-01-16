@@ -20,8 +20,7 @@ function resetStateInPlace(prefs){
   for (const [k,v] of Object.entries(fresh)) state[k] = v;
 }
 
-/* ===================== Audio: priming + carga de pistas ===================== */
-// Desbloqueo del AudioContext en el primer gesto del usuario
+/* ===================== Audio: priming + pistas personalizadas ===================== */
 let __audioPrimed = false;
 function primeAudioOnce(){
   if (__audioPrimed) return;
@@ -31,16 +30,16 @@ function primeAudioOnce(){
 window.addEventListener('pointerdown', primeAudioOnce, { once:true, passive:true });
 window.addEventListener('keydown',      primeAudioOnce, { once:true });
 
-// Carga tus pistas personalizadas (ajusta rutas/nombres si hace falta)
+// Carga tus pistas (ajusta rutas si es necesario)
 sfx.load({
   welcome: '/audio/welcome.wav',
   reveal : '/audio/reveal.wav',
   error  : '/audio/error.wav',
   board  : '/audio/board.wav',
   ready  : '/audio/ready.wav',
-  final  : '/audio/final.mp3'
+  final  : '/audio/final.wav'
 });
-// Asegura que no esté muteado y con volumen audible por defecto
+// Asegura estado audible
 if (sfx.audio.muted) sfx.audio.muted = false;
 if (!sfx.audio.volume || sfx.audio.volume <= 0) sfx.audio.volume = 0.9;
 
@@ -84,16 +83,13 @@ let __readyTimer = null;
 function render(){
   document.body?.setAttribute('data-phase', state.phase);
 
-  // Sonidos por transición de fase
+  // Sonidos por transición de fase (READY / FINAL)
   if (__lastPhase !== state.phase){
     if (state.phase === 'READY') {
       if (__readyTimer) { clearTimeout(__readyTimer); __readyTimer = null; }
-      // READY debe sonar al entrar (welcome ya sonó en SPLASH dentro de events.js)
       __readyTimer = setTimeout(()=> sfx.ready(), 0);
     }
-    if (state.phase === 'FINAL') {
-      sfx.final();
-    }
+    if (state.phase === 'FINAL') sfx.final();
     __lastPhase = state.phase;
   }
 
@@ -121,7 +117,7 @@ function revealNext(){
 function guardedAdvance(){
   if (state.phase==='LOBBY') { start(); render(); return; }
 
-  // READY -> ROUND (mostrar la pregunta cuando decida el presentador)
+  // READY -> ROUND (mostrar pregunta)
   if (state.phase==='READY'){
     state.phase = 'ROUND';
     render();
@@ -129,7 +125,7 @@ function guardedAdvance(){
   }
 
   if (state.phase==='ROUND'){
-    revealNext(); // revela la siguiente; si era la última, assignTo -> INTER/FINAL
+    revealNext(); // si era la última, assignTo -> INTER/FINAL
     render();
     return;
   }
@@ -137,10 +133,8 @@ function guardedAdvance(){
   if (state.phase==='INTER'){
     const round = DATA()[currentIndex(state)];
     if (!allRevealed(state, round)) { toast(els.toast,'Revela todas las respuestas antes de continuar'); return; }
-    // Si hubo victoria inmediata, FINAL ya está seteado por assignTo; si no:
     if (state.pendingFinal && state.winner) { state.phase='FINAL'; render(); return; }
-    // Prepara siguiente ronda y queda en READY (no muestra la pregunta)
-    nextRound(state, DATA(), state.originalTeam);
+    nextRound(state, DATA(), state.originalTeam); // prepara y queda en READY
     render();
     return;
   }
@@ -153,8 +147,11 @@ function start(isReset=false){
   if (isReset){
     const prefs = { randomOn: state.randomOn, winThreshold: state.winThreshold };
     resetStateInPlace(prefs);
-    // mostramos splash desde events.js al volver a wireWelcome
+    // Mostrar splash y ocultar welcome al reiniciar
+    els.splash?.classList.remove('hidden');
     els.welcome?.classList.add('hidden');
+    // 🔁 Re-vincula los listeners del splash y welcome
+    bindWelcome();
     render();
     return;
   }
@@ -286,12 +283,8 @@ const setTurn = (t)=>{ state.turn = t; render(); };
 import { wireEvents as __wire } from './ui/events.js';
 __wire(state, null, els, start, guardedAdvance, setTurn, render);
 
-/* ===================== Init ===================== */
-loadData();
-render();
-
-/* ===================== Splash + Nombres (wireWelcome) ===================== */
-if (els.splash || els.welcome) {
+/* ========== Helper para re-vincular SPLASH+WELCOME en resets ========== */
+function bindWelcome(){
   wireWelcome(
     state,
     els,
@@ -304,4 +297,27 @@ if (els.splash || els.welcome) {
   );
 }
 
+/* ===================== Init ===================== */
+loadData();
+render();
+
+/* ===================== Splash + Nombres (wireWelcome) ===================== */
+if (els.splash || els.welcome) {
+  bindWelcome();
+}
+
 export { start, state };
+
+// ========= BOTÓN "JUGAR DE NUEVO" (pantalla final) =========
+const finalOverlay = document.getElementById('finalOverlay');
+const btnRestart = document.getElementById('btnRestart');
+
+if (btnRestart){
+  btnRestart.addEventListener('click', ()=>{
+    finalOverlay?.classList.add('hidden');
+    els.splash?.classList.remove('hidden');
+    els.welcome?.classList.add('hidden');
+    start(true); // reinicia el juego completo
+  });
+}
+

@@ -166,3 +166,52 @@ async function final(){
 }
 
 export const sfx = { load, welcome, reveal, error, board, ready, final, unlock, audio };
+
+/* =================== CONFETTI =================== */
+export function startConfetti(){
+  const canvas = document.getElementById('confettiCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width = window.innerWidth;
+  const H = canvas.height = window.innerHeight;
+
+  const confettiCount = 200;
+  const confetti = Array.from({length: confettiCount}, ()=>({
+    x: Math.random() * W,
+    y: Math.random() * H - H,
+    r: 6 + Math.random()*6,
+    d: Math.random()*0.5 + 0.5,
+    color: `hsl(${Math.random()*360}, 100%, 60%)`
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    confetti.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, 2*Math.PI);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    });
+    update();
+  }
+
+  function update(){
+    confetti.forEach(p=>{
+      p.y += p.d * 4;
+      if(p.y > H){
+        p.y = -10;
+        p.x = Math.random() * W;
+      }
+    });
+  }
+
+  let frame;
+  function loop(){
+    draw();
+    frame = requestAnimationFrame(loop);
+  }
+  loop();
+
+  // detener tras 6 segundos
+  setTimeout(()=> cancelAnimationFrame(frame), 6000);
+}
